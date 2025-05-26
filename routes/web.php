@@ -4,16 +4,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\KelasController;
-use App\Http\Controllers\Admin\MapelController;
+use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\admin\KelasController;
+use App\Http\Controllers\admin\MapelController;
 
-use App\Http\Controllers\Admin\JadwalController;
-use App\Http\Controllers\Admin\HariLiburController;
+use App\Http\Controllers\admin\JadwalController;
+use App\Http\Controllers\admin\HariLiburController;
 
 use App\Http\Controllers\guru\GuruJadwalController;
 use App\Http\Controllers\siswa\SiswaJadwalController;
-use App\Http\Controllers\Admin\AdminAbsensiController;
+use App\Http\Controllers\admin\AdminAbsensiController;
 
 use App\Http\Controllers\guru\AbsensiController as GuruAbsensiController;
 use App\Http\Controllers\guru\ProfileController as GuruProfileController;
@@ -25,7 +25,7 @@ use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\siswa\DashboardController as SiswaDashboardController;
 use App\Http\Controllers\kepsek\DashboardController as KepsekDashboardController;
 
-// Route::get('/', function () {
+// Route::get('/', function ()
 //     return view('welcome');
 // });
 Route::get('/', [HomeController::class, 'index'])->middleware('guest')->name('home.index');
