@@ -320,30 +320,30 @@
 
                 <li class="sidebar-title">Data Guru & Siswa</li>
 
-                <li class="sidebar-item  ">
-                    <a href="table.html" class='sidebar-link'>
+                <li class="sidebar-item  {{ Request::is('kepsek/data-guru') ? 'active' : '' }}">
+                    <a href="{{ route('kepsek.show-guru') }}" class='sidebar-link'>
                         <i class="bi bi-people-fill"></i>
                         <span>Daftar Guru</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item  ">
-                    <a href="table-datatable.html" class='sidebar-link'>
+                <li class="sidebar-item  {{ Request::is('kepsek/data-siswa') ? 'active' : '' }}">
+                    <a href="{{ route('kepsek.show-siswa') }}" class='sidebar-link'>
                         <i class="bi bi-people-fill"></i>
                         <span>Daftar Siswa</span>
                     </a>
                 </li>
                 <li class="sidebar-title">Sekolah</li>
 
-                <li class="sidebar-item  ">
-                    <a href="table.html" class='sidebar-link'>
+                <li class="sidebar-item  {{ Request::is('kepsek/Jadwal-Pelajaran') ? 'active' : '' }}">
+                    <a href="{{ route('kepsek.show-jadwal') }}" class='sidebar-link'>
                         <i class="bi bi-calendar-event-fill"></i>
                         <span>Jadwal Peajaran</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item  ">
-                    <a href="table-datatable.html" class='sidebar-link'>
+                <li class="sidebar-item {{ Request::is('kepsek/Mata-Pelajaran') ? 'active' : '' }} ">
+                    <a href="{{ route('kepsek.show-mapel') }}" class='sidebar-link'>
                         <i class="bi bi-book-half"></i>
                         <span>Mata Pelajaran</span>
                     </a>

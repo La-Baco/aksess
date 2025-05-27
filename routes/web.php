@@ -20,10 +20,13 @@ use App\Http\Controllers\guru\ProfileController as GuruProfileController;
 use App\Http\Controllers\siswa\AbsensiController as SiswaAbsensiController;
 use App\Http\Controllers\siswa\ProfileController as SiswaProfileController;
 use App\Http\Controllers\guru\DashboardController as GuruDashboardController;
-use App\Http\Controllers\kepsek\ProfileController as KepsekProfileController;
 use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\siswa\DashboardController as SiswaDashboardController;
+
+use App\Http\Controllers\kepsek\ProfileController as KepsekProfileController;
 use App\Http\Controllers\kepsek\DashboardController as KepsekDashboardController;
+use App\Http\Controllers\kepsek\UserController as KepsekUserController;
+use App\Http\Controllers\kepsek\JadwalController as KepsekJadwalController;
 
 // Route::get('/', function ()
 //     return view('welcome');
@@ -115,4 +118,8 @@ Route::group(['middleware' => 'auth:kepsek'], function () {
 
     Route::get('/kepsek/profil', [KepsekProfileController::class, 'show'])->name('kepsek.profil');
     Route::put('/kepsek/profil', [KepsekProfileController::class, 'update'])->name('kepsek.profil.update');
+    Route::get('/kepsek/data-guru', [KepsekUserController::class, 'indexGuru'])->name('kepsek.show-guru');
+    Route::get('/kepsek/data-siswa', [KepsekUserController::class, 'indexSiswa'])->name('kepsek.show-siswa');
+    Route::get('/kepsek/Jadwal-Pelajaran', [KepsekJadwalController::class, 'showJadwal'])->name('kepsek.show-jadwal');
+    Route::get('/kepsek/Mata-Pelajaran', [KepsekJadwalController::class, 'showMapel'])->name('kepsek.show-mapel');
 });
