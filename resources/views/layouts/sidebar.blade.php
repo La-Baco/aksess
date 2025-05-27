@@ -64,7 +64,7 @@
                     </li>
                     <li class="sidebar-item {{ Request::is('admin/mapel') ? 'active' : '' }} ">
                         <a href="{{ route('admin.mapel.index') }}" class='sidebar-link'>
-                            <i class="bi bi-book-half  "></i>
+                            <i class="bi bi-book-half"></i>
                             <span>Mata Pelajaran</span>
                         </a>
                     </li>
@@ -82,30 +82,30 @@
                     </li>
                     <li class="sidebar-title">Rekap</li>
                     <li class="sidebar-item  ">
-                    <a href="table.html" class='sidebar-link'>
-                        <i class="bi bi-calendar-event-fill"></i>
-                        <span>Rekap Kehadiran Guru</span>
-                    </a>
-                </li>
+                        <a href="table.html" class='sidebar-link'>
+                            <i class="bi bi-calendar-event-fill"></i>
+                            <span>Rekap Kehadiran Guru</span>
+                        </a>
+                    </li>
 
-                <li class="sidebar-item  ">
-                    <a href="table.html" class='sidebar-link'>
-                        <i class="bi bi-megaphone-fill"></i>
-                        <span>Rekap Kehadiran Siswa</span>
-                    </a>
-                </li>
-                <li class="sidebar-item  ">
-                    <a href="table.html" class='sidebar-link'>
-                        <i class="bi bi-megaphone-fill"></i>
-                        <span>Rekap Izin Guru</span>
-                    </a>
-                </li>
-                <li class="sidebar-item  ">
-                    <a href="table.html" class='sidebar-link'>
-                        <i class="bi bi-megaphone-fill"></i>
-                        <span>Rekap Izin Siswa</span>
-                    </a>
-                </li>
+                    <li class="sidebar-item  ">
+                        <a href="table.html" class='sidebar-link'>
+                            <i class="bi bi-megaphone-fill"></i>
+                            <span>Rekap Kehadiran Siswa</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="table.html" class='sidebar-link'>
+                            <i class="bi bi-megaphone-fill"></i>
+                            <span>Rekap Izin Guru</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="table.html" class='sidebar-link'>
+                            <i class="bi bi-megaphone-fill"></i>
+                            <span>Rekap Izin Siswa</span>
+                        </a>
+                    </li>
 
                     <li class="sidebar-title">Setting</li>
                     <li class="sidebar-item {{ Request::is('admin/absensi/setting') ? 'active' : '' }} ">
@@ -172,17 +172,17 @@
                 <li class="sidebar-title">Kehadiran &amp; Izin</li>
 
                 <li class="sidebar-item {{ Request::is('siswa/rekap-kehadiran') ? 'active' : '' }} ">
-                        <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
-                            <i class="bi bi-calendar-check-fill"></i>
-                            <span>Rekap Kehadiran</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item {{ Request::is('siswa/rekap-izin') ? 'active' : '' }} ">
-                        <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
-                            <i class="bi bi-file-earmark-text-fill"></i>
-                            <span>Rekap Izin</span>
-                        </a>
-                    </li>
+                    <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
+                        <i class="bi bi-calendar-check-fill"></i>
+                        <span>Rekap Kehadiran</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('siswa/rekap-izin') ? 'active' : '' }} ">
+                    <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
+                        <i class="bi bi-file-earmark-text-fill"></i>
+                        <span>Rekap Izin</span>
+                    </a>
+                </li>
 
 
 
@@ -206,10 +206,10 @@
                 <li class="sidebar-title">Pengaturan Akun</li>
 
                 <li class="sidebar-item {{ Request::is('guru/profil') ? 'active' : '' }} ">
-                        <a href="{{ route('guru.profil') }}" class='sidebar-link'>
-                            <i class="bi bi-person-circle"></i>
-                            <span>Profile</span>
-                        </a>
+                    <a href="{{ route('guru.profil') }}" class='sidebar-link'>
+                        <i class="bi bi-person-circle"></i>
+                        <span>Profile</span>
+                    </a>
                 </li>
 
                 </ul>
@@ -273,30 +273,30 @@
 
 
 
-                <li class="sidebar-title">Sekolah</li>
+                    <li class="sidebar-title">Sekolah</li>
 
-                <li class="sidebar-item {{ Request::is('siswa/jadwal') ? 'active' : '' }} ">
-                    <a href="{{ route('siswa.jadwal') }}" class='sidebar-link'>
-                        <i class="bi bi-calendar-event-fill"></i>
-                        <span>Jadwal Pelajaran</span>
-                    </a>
-                </li>
-                <li class="sidebar-item  ">
-                    <a href="table.html" class='sidebar-link'>
-                        <i class="bi bi-megaphone-fill"></i>
-                        <span>Pengumuman</span>
-                    </a>
-                </li>
+                    <li class="sidebar-item {{ Request::is('siswa/jadwal') ? 'active' : '' }} ">
+                        <a href="{{ route('siswa.jadwal') }}" class='sidebar-link'>
+                            <i class="bi bi-calendar-event-fill"></i>
+                            <span>Jadwal Pelajaran</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  ">
+                        <a href="table.html" class='sidebar-link'>
+                            <i class="bi bi-megaphone-fill"></i>
+                            <span>Pengumuman</span>
+                        </a>
+                    </li>
 
 
-                <li class="sidebar-title">Pengaturan Akun</li>
+                    <li class="sidebar-title">Pengaturan Akun</li>
 
-                <li class="sidebar-item {{ Request::is('siswa/profil') ? 'active' : '' }} ">
+                    <li class="sidebar-item {{ Request::is('siswa/profil') ? 'active' : '' }} ">
                         <a href="{{ route('siswa.profil') }}" class='sidebar-link'>
                             <i class="bi bi-person-circle"></i>
                             <span>Profile</span>
                         </a>
-                </li>
+                    </li>
 
 
 
@@ -318,95 +318,46 @@
                     </li>
 
 
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-stack"></i>
-                            <span>Components</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="component-alert.html">Alert</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="component-badge.html">Badge</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="component-breadcrumb.html">Breadcrumb</a>
-                            </li>
-
-
-                        </ul>
-                    </li>
-
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-collection-fill"></i>
-                            <span>Extra Components</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="extra-component-avatar.html">Avatar</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="extra-component-toastify.html">Toastify</a>
-                            </li>
-
-                    </li>
-                </ul>
-                </li>
-
-
-
-
-                <li class="sidebar-title">Forms &amp; Tables</li>
-
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-hexagon-fill"></i>
-                        <span>Form Elements</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="form-element-input.html">Input</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="form-element-input-group.html">Input Group</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="form-element-select.html">Select</a>
-                        </li>
-
-                </li>
-                </ul>
-                </li>
-
-
+                <li class="sidebar-title">Data Guru & Siswa</li>
 
                 <li class="sidebar-item  ">
                     <a href="table.html" class='sidebar-link'>
-                        <i class="bi bi-grid-1x2-fill"></i>
-                        <span>Table</span>
+                        <i class="bi bi-people-fill"></i>
+                        <span>Daftar Guru</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item  ">
                     <a href="table-datatable.html" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                        <span>Datatable</span>
+                        <i class="bi bi-people-fill"></i>
+                        <span>Daftar Siswa</span>
                     </a>
                 </li>
+                <li class="sidebar-title">Sekolah</li>
+
+                <li class="sidebar-item  ">
+                    <a href="table.html" class='sidebar-link'>
+                        <i class="bi bi-calendar-event-fill"></i>
+                        <span>Jadwal Peajaran</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item  ">
+                    <a href="table-datatable.html" class='sidebar-link'>
+                        <i class="bi bi-book-half"></i>
+                        <span>Mata Pelajaran</span>
+                    </a>
+                </li>
+
 
                 <li class="sidebar-title">Pengaturan Akun</li>
 
                 <li class="sidebar-item {{ Request::is('kepsek/profil') ? 'active' : '' }} ">
-                        <a href="{{ route('kepsek.profil') }}" class='sidebar-link'>
-                            <i class="bi bi-calendar-event-fill"></i>
-                            <span>Profile</span>
-                        </a>
-                    </li>
+                    <a href="{{ route('kepsek.profil') }}" class='sidebar-link'>
+                        <i class="bi bi-calendar-event-fill"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
 
                 <li class="sidebar-item  has-sub">
                     <a href="#" class='sidebar-link'>
@@ -426,24 +377,7 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-egg-fill"></i>
-                        <span>Icons</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="ui-icons-bootstrap-icons.html">Bootstrap Icons </a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="ui-icons-fontawesome.html">Fontawesome</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="ui-icons-dripicons.html">Dripicons</a>
-                        </li>
-                    </ul>
-                </li>
-                </ul>
+
             </div>
         @endif
 
