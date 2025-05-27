@@ -578,9 +578,9 @@
 
             <div class="container">
 
-                <div class="row gy-4">
+                <div class="row gy-4 justify-content-center">
 
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
+                    {{-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
                         data-aos-delay="100">
                         <div class="team-member">
                             <div class="member-img">
@@ -600,13 +600,13 @@
                                     Ipsum exercitationem iure minima enim corporis et voluptate.</p>
                             </div>
                         </div>
-                    </div><!-- End Team Member -->
+                    </div><!-- End Team Member --> --}}
 
                     <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
                         data-aos-delay="200">
                         <div class="team-member">
                             <div class="member-img">
-                                <img src="{{ asset('assets2/img/team/team-2.jpg') }} " class="img-fluid"
+                                <img src="{{ asset('assets2/img/team/person-1.jpg') }} " class="img-fluid"
                                     alt="">
                                 <div class="social">
                                     <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -616,10 +616,10 @@
                                 </div>
                             </div>
                             <div class="member-info">
-                                <h4>Sarah Jhonson</h4>
-                                <span>Product Manager</span>
-                                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima
-                                    suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
+                                <h4>Danur Wenda</h4>
+                                <span>Web Developer</span>
+                                <p>A Web Developer who loves bringing ideas to life through clean and creative websites.
+                                    Always eager to learn new technologies and build cool, user-friendly projects.</p>
                             </div>
                         </div>
                     </div><!-- End Team Member -->
@@ -628,7 +628,7 @@
                         data-aos-delay="300">
                         <div class="team-member">
                             <div class="member-img">
-                                <img src="{{ asset('assets2/img/team/team-3.jpg') }} " class="img-fluid"
+                                <img src="{{ asset('assets2/img/team/person-2.jpg') }} " class="img-fluid"
                                     alt="">
                                 <div class="social">
                                     <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -638,15 +638,16 @@
                                 </div>
                             </div>
                             <div class="member-info">
-                                <h4>William Anderson</h4>
-                                <span>CTO</span>
-                                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt.
-                                    Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
+                                <h4>Adhfry</h4>
+                                <span>Full Stack Developer</span>
+                                <p>A passionate Full Stack Developer with experience in both frontend and backend
+                                    development. Skilled in building responsive, high-performance web applications and
+                                    always committed to delivering clean, efficient, and scalable code.</p>
                             </div>
                         </div>
                     </div><!-- End Team Member -->
 
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
+                    {{-- <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up"
                         data-aos-delay="400">
                         <div class="team-member">
                             <div class="member-img">
@@ -666,7 +667,7 @@
                                     aliquid doloremque ut possimus ipsum officia.</p>
                             </div>
                         </div>
-                    </div><!-- End Team Member -->
+                    </div><!-- End Team Member --> --}}
 
                 </div>
 
@@ -674,7 +675,7 @@
 
         </section><!-- /Team Section -->
 
-        <!-- Clients Section -->
+        {{-- <!-- Clients Section -->
         <section id="clients" class="clients section">
 
             <!-- Section Title -->
@@ -742,7 +743,7 @@
 
             </div>
 
-        </section><!-- /Clients Section -->
+        </section><!-- /Clients Section --> --}}
 
 
         <!-- Contact Section -->
@@ -765,8 +766,8 @@
                                 <div class="info-item" data-aos="fade" data-aos-delay="200">
                                     <i class="bi bi-geo-alt"></i>
                                     <h3>Address</h3>
-                                    <p>A108 Adam Street</p>
-                                    <p>New York, NY 535022</p>
+                                    <p>Kabupaten Sumenep</p>
+                                    <p>Jawa Timur</p>
                                 </div>
                             </div><!-- End Info Item -->
 
@@ -774,8 +775,7 @@
                                 <div class="info-item" data-aos="fade" data-aos-delay="300">
                                     <i class="bi bi-telephone"></i>
                                     <h3>Call Us</h3>
-                                    <p>+1 5589 55488 55</p>
-                                    <p>+1 6678 254445 41</p>
+                                    <p>+62877 2967 8148</p>
                                 </div>
                             </div><!-- End Info Item -->
 
@@ -783,8 +783,8 @@
                                 <div class="info-item" data-aos="fade" data-aos-delay="400">
                                     <i class="bi bi-envelope"></i>
                                     <h3>Email Us</h3>
-                                    <p>info@example.com</p>
-                                    <p>contact@example.com</p>
+                                    <p>labaco.aco17@gmail.com</p>
+                                    <p>info@aksess.site</p>
                                 </div>
                             </div><!-- End Info Item -->
 
@@ -793,7 +793,7 @@
                                     <i class="bi bi-clock"></i>
                                     <h3>Open Hours</h3>
                                     <p>Monday - Friday</p>
-                                    <p>9:00AM - 05:00PM</p>
+                                    <p>06:00AM - 03:00PM</p>
                                 </div>
                             </div><!-- End Info Item -->
 
@@ -877,10 +877,10 @@
                         <span class="sitename">Aksess</span>
                     </a>
                     <div class="footer-contact pt-3">
-                        <p>Jl. Pendidikan No. 10</p>
-                        <p>Kabupaten Sumenep, 12345</p>
-                        <p class="mt-3"><strong>Phone:</strong> <span>+62 21 1234 5678</span></p>
-                        <p><strong>Email:</strong> <span>info@aksess.com</span></p>
+                        <p>Kab. Sumenep</p>
+                        <p>Jawa Timur, Indonesia</p>
+                        <p class="mt-3"><strong>Phone:</strong> <span>+62877 2967 8148</span></p>
+                        <p><strong>Email:</strong> <span>labaco.aco17@gmail.com</span></p>
                     </div>
                 </div>
 
