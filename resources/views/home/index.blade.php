@@ -192,7 +192,7 @@
                         <div class="stats-item d-flex align-items-center w-100 h-100">
                             <i class="bi bi-people-fill color-blue flex-shrink-0" style="color: #007bff;"></i>
                             <div>
-                                <span data-purecounter-start="0" data-purecounter-end="500"
+                                <span data-purecounter-start="0" data-purecounter-end="120"
                                     data-purecounter-duration="1" class="purecounter"></span>
                                 <p>Pengguna Terdaftar</p>
                             </div>
@@ -203,7 +203,7 @@
                         <div class="stats-item d-flex align-items-center w-100 h-100">
                             <i class="bi bi-cloud-upload-fill color-orange flex-shrink-0" style="color: #ff7f00;"></i>
                             <div>
-                                <span data-purecounter-start="0" data-purecounter-end="1200"
+                                <span data-purecounter-start="0" data-purecounter-end="150"
                                     data-purecounter-duration="1" class="purecounter"></span>
                                 <p>Dokumen Tersimpan</p>
                             </div>
@@ -214,7 +214,7 @@
                         <div class="stats-item d-flex align-items-center w-100 h-100">
                             <i class="bi bi-gear-fill color-green flex-shrink-0" style="color: #28a745;"></i>
                             <div>
-                                <span data-purecounter-start="0" data-purecounter-end="850"
+                                <span data-purecounter-start="0" data-purecounter-end="97"
                                     data-purecounter-duration="1" class="purecounter"></span>
                                 <p>Permintaan Diproses</p>
                             </div>
@@ -225,7 +225,7 @@
                         <div class="stats-item d-flex align-items-center w-100 h-100">
                             <i class="bi bi-award-fill color-pink flex-shrink-0" style="color: #d6336c;"></i>
                             <div>
-                                <span data-purecounter-start="0" data-purecounter-end="25"
+                                <span data-purecounter-start="0" data-purecounter-end="7"
                                     data-purecounter-duration="1" class="purecounter"></span>
                                 <p>Penghargaan</p>
                             </div>
