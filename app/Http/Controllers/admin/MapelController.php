@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mapel;
@@ -11,7 +11,7 @@ class MapelController extends Controller
     public function index()
     {
         $mapels = Mapel::with('guru')->get();
-        $gurus = User::where('role', 'guru')->get(); 
+        $gurus = User::where('role', 'guru')->get();
         return view('admin.mapel.index', compact('mapels', 'gurus'));
     }
 

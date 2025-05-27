@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -79,12 +79,12 @@ class JadwalController extends Controller
     //     ->where('jadwals.hari', $request->hari)
     //     ->where('jadwals.id', '!=', $id)
     //     ->where(function ($query) use ($request, $guruId) {
-    //         $query->where('jadwals.kelas_id', $request->kelas_id)    
+    //         $query->where('jadwals.kelas_id', $request->kelas_id)
     //             ->orWhere('mapels.guru_id', $guruId);
     //     })
     //     ->where(function ($query) use ($request) {
     //         $query->where('jadwals.waktu_mulai', '<', $request->waktu_selesai)
-    //             ->where('jadwals.waktu_selesai', '>', $request->waktu_mulai); 
+    //             ->where('jadwals.waktu_selesai', '>', $request->waktu_mulai);
     //     })
     //     ->exists();
 
