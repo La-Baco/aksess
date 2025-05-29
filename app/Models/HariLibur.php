@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class HariLibur extends Model
 {
-    use HasFactory;
-
+    use HasFactory; 
     protected $fillable = [
         'nama',
         'tanggal',

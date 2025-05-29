@@ -1,273 +1,259 @@
 @extends('layouts.app')
-@section('title','Dashboard')
+@section('title', 'Dashboard')
 @section('content')
 
-<div class="page-content">
-    <section class="row">
-        <div class="col-12 col-lg-9">
-            <div class="row">
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon purple">
-                                        <i class="iconly-boldShow"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Profile Views</h6>
-                                    <h6 class="font-extrabold mb-0">112.000</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon blue">
-                                        <i class="iconly-boldProfile"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Followers</h6>
-                                    <h6 class="font-extrabold mb-0">183.000</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon green">
-                                        <i class="iconly-boldAdd-User"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Following</h6>
-                                    <h6 class="font-extrabold mb-0">80.000</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon red">
-                                        <i class="iconly-boldBookmark"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Saved Post</h6>
-                                    <h6 class="font-extrabold mb-0">112</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+    <div class="page-content">
+        <section class="row">
+            <div class="col-12">
+                {{-- Stat Cards --}}
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Profile Visit</h4>
-                        </div>
-                        <div class="card-body">
-                            <div id="chart-profile-visit"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-xl-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Profile Visit</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">Europe</h5>
+                    <div class="row">
+                        <!-- Jumlah Siswa -->
+                        <div class="col-6 col-lg-2 col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body px-3 py-4-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="stats-icon blue">
+                                                <i class="iconly-boldUser"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 text-center text-md-start">
+                                            <h6 class="text-muted font-semibold">Siswa</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $totalSiswa }}</h6>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <h5 class="mb-0">862</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-europe"></div>
-                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-success" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">America</h5>
+                        </div>
+                        <!-- Jumlah Guru -->
+                        <div class="col-6 col-lg-2 col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body px-3 py-4-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="stats-icon green">
+                                                <i class="iconly-boldUser"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 text-center text-md-start">
+                                            <h6 class="text-muted font-semibold">Guru</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $totalGuru }}</h6>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <h5 class="mb-0">375</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-america"></div>
-                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">Indonesia</h5>
+                        </div>
+                        <!-- Jumlah Kelas -->
+                        <div class="col-6 col-lg-2 col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body px-3 py-4-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="stats-icon red">
+                                                <i class="iconly-boldHome"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 text-center text-md-start">
+                                            <h6 class="text-muted font-semibold">Kelas</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $totalKelas }}</h6>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <h5 class="mb-0">1025</h5>
+                            </div>
+                        </div>
+                        <!-- Jumlah Mapel -->
+                        <div class="col-6 col-lg-2 col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body px-3 py-4-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="stats-icon purple">
+                                                <i class="iconly-boldDocument"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 text-center text-md-start">
+                                            <h6 class="text-muted font-semibold">Mapel</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $totalMapel }}</h6>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-12">
-                                    <div id="chart-indonesia"></div>
+                            </div>
+                        </div>
+                        <!-- Jumlah Jadwal -->
+                        <div class="col-6 col-lg-2 col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body px-3 py-4-5">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="stats-icon teal">
+                                                <i class="iconly-boldCalendar"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 text-center text-md-start">
+                                            <h6 class="text-muted font-semibold">Jadwal</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $totalJadwal }}</h6>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-xl-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Latest Comments</h4>
+                {{-- Ringkasan Absensi Hari Ini --}}
+                <div class="col-12 mb-4">
+                    <h5 class="mb-3">Absensi Hari Ini ({{ \Carbon\Carbon::today()->toFormattedDateString() }})</h5>
+                    <div class="row">
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="card bg-light-success">
+                                <div class="card-body text-center">
+                                    <h6 class="mb-1">Hadir</h6>
+                                    <h4 class="font-extrabold">{{ $jumlahHadir }}</h4>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Comment</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="assets/images/faces/5.jpg">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">Congratulations on your graduation!</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="assets/images/faces/2.jpg">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">Wow amazing design! Can you make another
-                                                    tutorial for
-                                                    this design?</p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="card bg-light-warning">
+                                <div class="card-body text-center">
+                                    <h6 class="mb-1">Izin</h6>
+                                    <h4 class="font-extrabold">{{ $jumlahIzin }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="card bg-light-info">
+                                <div class="card-body text-center">
+                                    <h6 class="mb-1">Sakit</h6>
+                                    <h4 class="font-extrabold">{{ $jumlahSakit }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div class="card bg-light-danger">
+                                <div class="card-body text-center">
+                                    <h6 class="mb-1">Alpha</h6>
+                                    <h4 class="font-extrabold">{{ $jumlahAlpha }}</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-3">
-            <div class="card">
-                <div class="card-body py-4 px-5">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar avatar-xl">
-                            <img src="assets/images/faces/1.jpg" alt="Face 1">
-                        </div>
-                        <div class="ms-3 name">
-                            <h5 class="font-bold">John Duck</h5>
-                            <h6 class="text-muted mb-0">@johnducky</h6>
-                        </div>
+                {{-- Hari Libur Mendatang --}}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4>Hari Libur Mendatang</h4>
+                    </div>
+                    <div class="card-body">
+                        @if ($nextHolidays->isEmpty())
+                            <p class="text-muted">Tidak ada hari libur mendatang.</p>
+                        @else
+                            <ul class="list-group">
+                                @foreach ($nextHolidays as $hl)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>{{ $hl->nama }}</strong><br>
+                                            <small
+                                                class="text-muted">{{ \Carbon\Carbon::parse($hl->tanggal)->isoFormat('D MMMM Y') }}</small>
+                                        </div>
+                                        <span class="badge bg-info">{{ $hl->keterangan }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4>Recent Messages</h4>
-                </div>
-                <div class="card-content pb-4">
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="assets/images/faces/4.jpg">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">Hank Schrader</h5>
-                            <h6 class="text-muted mb-0">@johnducky</h6>
-                        </div>
-                    </div>
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="assets/images/faces/5.jpg">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">Dean Winchester</h5>
-                            <h6 class="text-muted mb-0">@imdean</h6>
-                        </div>
-                    </div>
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="assets/images/faces/1.jpg">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">John Dodol</h5>
-                            <h6 class="text-muted mb-0">@dodoljohn</h6>
-                        </div>
-                    </div>
-                    <div class="px-4">
-                        <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
-                            Conversation</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4>Visitors Profile</h4>
-                </div>
-                <div class="card-body">
-                    <div id="chart-visitors-profile"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
 
-@endsection
-@section('js')
-<script src="{{ asset('assets/vendors/apexcharts/apexcharts.js') }}"></script>
-<script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
+                {{-- Rekap Kehadiran per Kelas Hari Ini --}}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4>Rekap Kehadiran Kelas ({{ \Carbon\Carbon::today()->toFormattedDateString() }})</h4>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Kelas</th>
+                                    <th>Hadir</th>
+                                    <th>Total Siswa</th>
+                                    <th>% Kehadiran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($rekapPerKelas as $kelas)
+                                    <tr>
+                                        <td>{{ $kelas->nama_kelas }}</td>
+                                        <td>{{ $kelas->hadir_count }}</td>
+                                        <td>{{ $kelas->total_count }}</td>
+                                        <td>{{ $kelas->presentase }}%</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {{-- Persetujuan Izin --}}
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Izin Siswa Pending</h4>
+                            </div>
+                            <div class="card-body">
+                                @if ($pendingIzinSiswa->isEmpty())
+                                    <p class="text-muted">Tidak ada permohonan izin siswa.</p>
+                                @else
+                                    <ul class="list-group">
+                                        @foreach ($pendingIzinSiswa as $izin)
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                {{ $izin->user->name }}
+                                                <small
+                                                    class="text-muted">{{ \Carbon\Carbon::parse($izin->tanggal)->toFormattedDateString() }}</small>
+                                                <div class="btn-group btn-group-sm">
+                                                    <a href="{{ route('kepsek.izin.approve', $izin->id) }}"
+                                                        class="btn btn-success">✔</a>
+                                                    <a href="{{ route('kepsek.izin.reject', $izin->id) }}"
+                                                        class="btn btn-danger">✖</a>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Izin Guru Pending</h4>
+                            </div>
+                            <div class="card-body">
+                                @if ($pendingIzinGuru->isEmpty())
+                                    <p class="text-muted">Tidak ada permohonan izin guru.</p>
+                                @else
+                                    <ul class="list-group">
+                                        @foreach ($pendingIzinGuru as $izin)
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                {{ $izin->user->name }}
+                                                <small
+                                                    class="text-muted">{{ \Carbon\Carbon::parse($izin->tanggal)->toFormattedDateString() }}</small>
+                                                <div class="btn-group btn-group-sm">
+                                                    <a href="{{ route('kepsek.izin.approve', $izin->id) }}"
+                                                        class="btn btn-success">✔</a>
+                                                    <a href="{{ route('kepsek.izin.reject', $izin->id) }}"
+                                                        class="btn btn-danger">✖</a>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
 @endsection

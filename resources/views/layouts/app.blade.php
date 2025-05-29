@@ -86,8 +86,6 @@
 
                                     <li><a class="dropdown-item" href="#"><i
                                                 class="bi bi-gear-fill me-2"></i>Settings</a></li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="bi bi-wallet2 me-2"></i>Wallet</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
