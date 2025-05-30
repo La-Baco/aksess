@@ -15,7 +15,7 @@ class Kelas extends Model
     // Di model Kelas
     public function siswa()
     {
-        return $this->hasMany(User::class, 'kelas_id');
+        return $this->hasMany(User::class, 'kelas_id')->where('role', 'siswa');
     }
 
 

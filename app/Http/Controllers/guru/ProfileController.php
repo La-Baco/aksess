@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Guru;
 
-use App\Http\Controllers\Controller;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,10 +13,14 @@ class ProfileController extends Controller
     public function show()
     {
         $user = Auth::user();
-        
-        $kelasDiampu = $user->kelas_id ? $user->kelas->nama_kelas : '-';
 
-        return view('guru.profil', compact('user', 'kelasDiampu'));
+        $kelasWali = Kelas::whereHas('guruWali', function ($q) use ($user) {
+            $q->where('guru_id', $user->id);
+        })->first();
+
+        $namaKelas = $kelasWali ? $kelasWali->nama_kelas : '-';
+
+        return view('guru.profil', compact('user', 'kelasWali', 'namaKelas'));
     }
 
     public function update(Request $request)

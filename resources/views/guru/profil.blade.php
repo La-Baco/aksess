@@ -70,7 +70,7 @@
                                     [
                                         'icon' => 'bi bi-person-badge',
                                         'label' => 'Wali Kelas',
-                                        'value' => $kelasDiampu !== '-' ? $kelasDiampu : '-',
+                                        'value' => $namaKelas !== '-' ? $namaKelas : '-',
                                     ],
                                 ];
                             @endphp
