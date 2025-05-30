@@ -70,6 +70,6 @@ class DashboardController extends Controller
             'labels','series'
         ));
 
-        
+
     }
 }
