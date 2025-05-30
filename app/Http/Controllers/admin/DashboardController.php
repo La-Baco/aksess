@@ -70,18 +70,6 @@ class DashboardController extends Controller
             'labels','series'
         ));
 
-        return view('admin.dashboard', compact(
-            'jumlahSiswa',
-            'jumlahGuru',
-            'jumlahKelas',
-            'jumlahMapel',
-            'jumlahJadwal',
-            'jumlahHadir',
-            'jumlahIzin',
-            'jumlahSakit',
-            'jumlahAlpha',
-            'jadwalHariIni'
-        ));
-
+        
     }
 }
