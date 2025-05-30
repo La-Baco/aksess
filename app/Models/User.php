@@ -70,4 +70,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Kelas::class, 'guru_id'); // guru_id di tabel kelas
     }
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class);
+    }
+
+    public function izin()
+    {
+        return $this->hasMany(Izin::class);
+    }
  }

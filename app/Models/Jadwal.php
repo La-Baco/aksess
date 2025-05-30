@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Jadwal extends Model
 {
     use HasFactory;
-
+protected $table = 'jadwals';
     protected $fillable = [
         'kelas_id',
         'mapel_id',

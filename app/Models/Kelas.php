@@ -30,4 +30,9 @@ class Kelas extends Model
     {
         return $this->hasMany(Jadwal::class);
     }
+    public function mapel()
+{
+    return $this->belongsToMany(Mapel::class, 'jadwals', 'kelas_id', 'mapel_id')->distinct();
+}
+
 }

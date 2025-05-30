@@ -1,274 +1,114 @@
 @extends('layouts.app')
-@section('title','Dashboard')
+
+@section('title', 'Dashboard Siswa')
+
 @section('content')
+<div class="container mt-4">
+    <h4>Selamat Datang, {{ $user->name }}</h4>
 
-<div class="page-content">
-    <section class="row">
-        <div class="col-12 col-lg-9">
-            <div class="row">
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon purple">
-                                        <i class="iconly-boldShow"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Profile Views</h6>
-                                    <h6 class="font-extrabold mb-0">112.000</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon blue">
-                                        <i class="iconly-boldProfile"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Followers</h6>
-                                    <h6 class="font-extrabold mb-0">183.000</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon green">
-                                        <i class="iconly-boldAdd-User"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Following</h6>
-                                    <h6 class="font-extrabold mb-0">80.000</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon red">
-                                        <i class="iconly-boldBookmark"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Saved Post</h6>
-                                    <h6 class="font-extrabold mb-0">112</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Profile Visit</h4>
-                        </div>
-                        <div class="card-body">
-                            <div id="chart-profile-visit"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-xl-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Profile Visit</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">Europe</h5>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <h5 class="mb-0">862</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-europe"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-success" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">America</h5>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <h5 class="mb-0">375</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-america"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">Indonesia</h5>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <h5 class="mb-0">1025</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-indonesia"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-xl-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Latest Comments</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Comment</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="assets/images/faces/5.jpg">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">Congratulations on your graduation!</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="assets/images/faces/2.jpg">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">Wow amazing design! Can you make another
-                                                    tutorial for
-                                                    this design?</p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    {{-- Informasi Kelas dan Wali Kelas --}}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Informasi Kelas</h5>
+            <p><strong>Kelas:</strong> {{ $kelas->nama_kelas ?? '-' }}</p>
+            <p><strong>Wali Kelas:</strong> {{ $waliKelas->name ?? '-' }}</p>
         </div>
-        <div class="col-12 col-lg-3">
-            <div class="card">
-                <div class="card-body py-4 px-5">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar avatar-xl">
-                            <img src="assets/images/faces/1.jpg" alt="Face 1">
-                        </div>
-                        <div class="ms-3 name">
-                            <h5 class="font-bold">John Duck</h5>
-                            <h6 class="text-muted mb-0">@johnducky</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4>Recent Messages</h4>
-                </div>
-                <div class="card-content pb-4">
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="assets/images/faces/4.jpg">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">Hank Schrader</h5>
-                            <h6 class="text-muted mb-0">@johnducky</h6>
-                        </div>
-                    </div>
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="assets/images/faces/5.jpg">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">Dean Winchester</h5>
-                            <h6 class="text-muted mb-0">@imdean</h6>
-                        </div>
-                    </div>
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="assets/images/faces/1.jpg">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">John Dodol</h5>
-                            <h6 class="text-muted mb-0">@dodoljohn</h6>
-                        </div>
-                    </div>
-                    <div class="px-4">
-                        <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
-                            Conversation</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4>Visitors Profile</h4>
-                </div>
+    </div>
+
+    {{-- Ringkasan Kehadiran --}}
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-success">
                 <div class="card-body">
-                    <div id="chart-visitors-profile"></div>
+                    <h5 class="card-title text-white">Hadir</h5>
+                    <p class="card-text fs-3">{{ $totalHadir }}</p>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Izin</h5>
+                    <p class="card-text fs-3">{{ $totalIzin }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Alfa</h5>
+                    <p class="card-text fs-3">{{ $totalAlfa }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Jadwal Hari Ini --}}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Jadwal Hari Ini ({{ now()->translatedFormat('l, d F Y') }})</h5>
+            @if ($jadwalHariIni->count())
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>Jam</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Guru</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($jadwalHariIni as $jadwal)
+                            <tr>
+                                <td>{{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}</td>
+                                <td>{{ $jadwal->mapel->nama }}</td>
+                                <td>{{ $jadwal->mapel->guru->name }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <p class="text-muted mt-2">Tidak ada jadwal hari ini.</p>
+            @endif
+        </div>
+    </div>
+
+    {{-- Status Absensi Hari Ini --}}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Status Absensi Hari Ini</h5>
+            @if ($absensiHariIni)
+                <p>Status: <strong class="text-primary text-uppercase">{{ $absensiHariIni->status }}</strong></p>
+                <p>Waktu Absen: {{ \Carbon\Carbon::parse($absensiHariIni->created_at)->format('H:i:s') }}</p>
+            @else
+                <p class="text-muted">Belum melakukan absensi hari ini.</p>
+            @endif
+        </div>
+    </div>
+
+    {{-- Status Izin Terakhir --}}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Izin Terakhir</h5>
+            @if ($izinTerakhir)
+                <p><strong>Status:</strong> {{ $izinTerakhir->status }}</p>
+                <p><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($izinTerakhir->tanggal)->translatedFormat('d F Y') }}</p>
+                <p><strong>Alasan:</strong> {{ $izinTerakhir->alasan }}</p>
+            @else
+                <p class="text-muted">Belum ada izin yang diajukan.</p>
+            @endif
+        </div>
+    </div>
+
+    {{-- Hari Libur Terdekat --}}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Hari Libur Terdekat</h5>
+            @if ($hariLiburSelanjutnya)
+                <p><strong>{{ \Carbon\Carbon::parse($hariLiburSelanjutnya->tanggal)->translatedFormat('l, d F Y') }}</strong> - {{ $hariLiburSelanjutnya->keterangan }}</p>
+            @else
+                <p class="text-muted">Tidak ada hari libur dalam waktu dekat.</p>
+            @endif
+        </div>
+    </div>
 </div>
-
-@endsection
-@section('js')
-<script src="{{ asset('assets/vendors/apexcharts/apexcharts.js') }}"></script>
-<script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
-
 @endsection
