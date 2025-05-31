@@ -17,27 +17,29 @@
 
     {{-- Ringkasan Kehadiran --}}
     <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5 class="card-title text-white">Hadir</h5>
-                    <p class="card-text fs-3">{{ $totalHadir }}</p>
+        <div class="col-6 col-md-4 mb-3">
+            <div class="card bg-light-success">
+                <div class="card-body text-center">
+                    <h6 class="mb-1 ">Hadir</h6>
+                    <h4 class="font-extrabold">{{ $totalHadir }}</h4>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-warning">
-                <div class="card-body">
-                    <h5 class="card-title text-white">Izin</h5>
-                    <p class="card-text fs-3">{{ $totalIzin }}</p>
+
+        <div class="col-6 col-md-4 mb-3">
+            <div class="card bg-light-warning">
+                <div class="card-body text-center">
+                    <h6 class="mb-1">Izin</h6>
+                    <h4 class="font-extrabold">{{ $totalIzin }}</h4>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-danger">
-                <div class="card-body">
-                    <h5 class="card-title text-white">Alfa</h5>
-                    <p class="card-text fs-3">{{ $totalAlfa }}</p>
+
+        <div class="col-6 col-md-4 mb-3">
+            <div class="card bg-light-danger">
+                <div class="card-body text-center">
+                    <h6 class="mb-1 ">Alfa</h6>
+                    <h4 class="font-extrabold ">{{ $totalAlfa }}</h4>
                 </div>
             </div>
         </div>

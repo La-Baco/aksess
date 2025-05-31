@@ -81,31 +81,20 @@
                         </a>
                     </li>
                     <li class="sidebar-title">Rekap</li>
-                    <li class="sidebar-item  ">
-                        <a href="table.html" class='sidebar-link'>
-                            <i class="bi bi-calendar-event-fill"></i>
+                    <li class="sidebar-item  {{ Request::is('admin/rekap/guru') ? 'active' : '' }}">
+                        <a href="{{ route('admin.absensi.rekap-guru')}}" class='sidebar-link'>
+                            <i class="bi bi-table"></i>
                             <span>Rekap Kehadiran Guru</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item  ">
-                        <a href="table.html" class='sidebar-link'>
-                            <i class="bi bi-megaphone-fill"></i>
+                    <li class="sidebar-item  {{ Request::is('admin/rekap/siswa') ? 'active' : '' }}">
+                        <a href="{{ route('admin.absensi.rekap-siswa')}}" class='sidebar-link'>
+                            <i class="bi bi-table"></i>
                             <span>Rekap Kehadiran Siswa</span>
                         </a>
                     </li>
-                    <li class="sidebar-item  ">
-                        <a href="table.html" class='sidebar-link'>
-                            <i class="bi bi-megaphone-fill"></i>
-                            <span>Rekap Izin Guru</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item  ">
-                        <a href="table.html" class='sidebar-link'>
-                            <i class="bi bi-megaphone-fill"></i>
-                            <span>Rekap Izin Siswa</span>
-                        </a>
-                    </li>
+
 
                     <li class="sidebar-title">Setting</li>
                     <li class="sidebar-item {{ Request::is('admin/absensi/setting') ? 'active' : '' }} ">
@@ -343,34 +332,31 @@
                     </a>
                 </li>
 
+                <li class="sidebar-title">Rekap</li>
+                <li class="sidebar-item  {{ Request::is('kepsek/rekap/guru') ? 'active' : '' }}">
+                    <a href="{{ route('kepsek.rekap-guru')}}" class='sidebar-link'>
+                        <i class="bi bi-table"></i>
+                        <span>Rekap Kehadiran Guru</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item  {{ Request::is('kepsek/rekap/siswa') ? 'active' : '' }}">
+                    <a href="{{ route('kepsek.rekap-siswa')}}" class='sidebar-link'>
+                        <i class="bi bi-table"></i>
+                        <span>Rekap Kehadiran Siswa</span>
+                    </a>
+                </li>
+
+
 
                 <li class="sidebar-title">Pengaturan Akun</li>
 
                 <li class="sidebar-item {{ Request::is('kepsek/profil') ? 'active' : '' }} ">
                     <a href="{{ route('kepsek.profil') }}" class='sidebar-link'>
-                        <i class="bi bi-calendar-event-fill"></i>
+                        <i class="bi bi-person-circle"></i>
                         <span>Profile</span>
                     </a>
                 </li>
-
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-pentagon-fill"></i>
-                        <span>Widgets</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="ui-widgets-chatbox.html">Chatbox</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="ui-widgets-pricing.html">Pricing</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="ui-widgets-todolist.html">To-do List</a>
-                        </li>
-                    </ul>
-                </li>
-
 
             </div>
         @endif

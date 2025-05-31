@@ -62,18 +62,40 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        $izinTerbaru = Izin::with('user')
-            ->orderBy('created_at', 'desc')
-            ->limit(5)
+
+
+        // 3. Daftar Izin Pending — dari satu tabel izin
+        $pending = Izin::where('status', 'Menunggu') // ganti dari 'pending'
+            ->with('user')
+            ->orderBy('tanggal_mulai', 'desc') // ganti dari 'tanggal'
             ->get();
+
+        $pendingIzinSiswa = $pending->filter(fn($i) => $i->user->role === 'siswa');
 
         return view('guru.dashboard', compact(
             'guru',
             'kelasWali',
             'jadwalHariIni',
             'rekapAbsensi',
-            'izinTerbaru',
+            'pendingIzinSiswa',
             'nextHolidays'
         ));
+    }
+    public function approve($id)
+    {
+        $izin = Izin::findOrFail($id);
+        $izin->status = 'disetujui';
+        $izin->save();
+
+        return redirect()->back()->with('success', 'Izin disetujui.');
+    }
+
+    public function reject($id)
+    {
+        $izin = Izin::findOrFail($id);
+        $izin->status = 'ditolak';
+        $izin->save();
+
+        return redirect()->back()->with('success', 'Izin ditolak.');
     }
 }

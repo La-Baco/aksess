@@ -84,54 +84,35 @@
             </div>
     </div>
     @endif
-
-
-
-    <section class="section">
-        <div class="card    ">
+    <div class="col-12 mb-4">
+        <div class="card">
             <div class="card-header">
-                <h4> Daftar Izin </h4>
+                <h4>Izin Siswa Pending</h4>
             </div>
-            <div class="card-body table-responsive">
-                <table class="table table-hover mb-0">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Tanggal Mulai</th>
-                            <th>Tanggal Selesai</th>
-                            <th>Alasan</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($izinTerbaru as $izin)
-                            <tr>
-                                <td>{{ $izin->user->name ?? '-' }}</td>
-                                <td>{{ \Carbon\Carbon::parse($izin->tanggal_mulai)->format('d M Y') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($izin->tanggal_selesai)->format('d M Y') }}</td>
-                                <td>{{ Str::limit($izin->alasan, 40) }}</td>
-                                <td>
-                                    @if ($izin->isDisetujui())
-                                        <span class="badge bg-success">Disetujui</span>
-                                    @elseif ($izin->isDitolak())
-                                        <span class="badge bg-danger">Ditolak</span>
-                                    @elseif ($izin->isMenunggu())
-                                        <span class="badge bg-warning text-dark">Menunggu</span>
-                                    @else
-                                        <span>-</span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="text-center">Belum ada data izin.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+            <div class="card-body">
+                @if ($pendingIzinSiswa->isEmpty())
+                    <p class="text-muted">Tidak ada permohonan izin siswa.</p>
+                @else
+                    <ul class="list-group">
+                        @foreach ($pendingIzinSiswa as $izin)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ $izin->user->name }}
+                                <small
+                                    class="text-muted">{{ \Carbon\Carbon::parse($izin->tanggal)->toFormattedDateString() }}</small>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{ route('guru.izin.approve', $izin->id) }}"
+                                        class="btn btn-success">✔</a>
+                                    <a href="{{ route('guru.izin.reject', $izin->id) }}"
+                                        class="btn btn-danger">✖</a>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
         </div>
-    </section>
+    </div>
+
 
 
     <section class="section">

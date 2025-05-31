@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -9,8 +8,8 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\KelasController;
 
 use App\Http\Controllers\admin\MapelController;
-use App\Http\Controllers\kepsek\IzinController as KepsekIzinController;
 use App\Http\Controllers\admin\JadwalController;
+use App\Http\Controllers\kepsek\RekapController;
 
 use App\Http\Controllers\admin\HariLiburController;
 use App\Http\Controllers\guru\GuruJadwalController;
@@ -20,12 +19,13 @@ use App\Http\Controllers\admin\AdminAbsensiController;
 use App\Http\Controllers\guru\IzinController as GuruIzinController;
 
 use App\Http\Controllers\siswa\IzinController as SiswaIzinController;
+use App\Http\Controllers\kepsek\IzinController as KepsekIzinController;
 use App\Http\Controllers\kepsek\UserController as KepsekUserController;
 use App\Http\Controllers\guru\AbsensiController as GuruAbsensiController;
 use App\Http\Controllers\guru\ProfileController as GuruProfileController;
 use App\Http\Controllers\kepsek\JadwalController as KepsekJadwalController;
-use App\Http\Controllers\siswa\AbsensiController as SiswaAbsensiController;
 
+use App\Http\Controllers\siswa\AbsensiController as SiswaAbsensiController;
 use App\Http\Controllers\siswa\ProfileController as SiswaProfileController;
 use App\Http\Controllers\guru\DashboardController as GuruDashboardController;
 use App\Http\Controllers\kepsek\ProfileController as KepsekProfileController;
@@ -36,15 +36,17 @@ use App\Http\Controllers\kepsek\DashboardController as KepsekDashboardController
 // Route::get('/', function ()
 //     return view('welcome');
 // });
-Route::get('/', [HomeController::class, 'index'])->middleware('guest')->name('home.index');
+Route::get('/', [HomeController::class, 'index'])
+    ->middleware('guest')
+    ->name('home.index');
 
-Route::get('/login', [AuthController::class, 'index'])->middleware('guest')->name('login');
+Route::get('/login', [AuthController::class, 'index'])
+    ->middleware('guest')
+    ->name('login');
 Route::post('/login', [AuthController::class, 'verify'])->name('auth.verify');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
 Route::group(['middleware' => 'auth:admin'], function () {
-
     // Dashboard route
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -82,7 +84,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::delete('/admin/jadwal/{id}', [JadwalController::class, 'destroy'])->name('admin.jadwal.destroy');
     Route::get('/admin/jadwal/{kelas_id}', [JadwalController::class, 'show'])->name('admin.jadwal.show');
 
-
     Route::get('/admin/hari-libur', [HariLiburController::class, 'index'])->name('admin.hari-libur.index');
     Route::post('/admin/hari-libur', [HariLiburController::class, 'store'])->name('admin.hari-libur.store');
     Route::put('/admin/hari-libur/{id}', [HariLiburController::class, 'update'])->name('admin.hari-libur.update');
@@ -90,7 +91,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::get('/admin/absensi/setting', [AdminAbsensiController::class, 'settingForm'])->name('admin.absensi.setting');
     Route::post('/admin/absensi/setting/store', [AdminAbsensiController::class, 'settingStore'])->name('admin.absensi.setting.store');
-Route::delete('admin/absensi/setting/reset', [AdminAbsensiController::class, 'settingReset'])->name('admin.absensi.setting.reset');
+    Route::delete('admin/absensi/setting/reset', [AdminAbsensiController::class, 'settingReset'])->name('admin.absensi.setting.reset');
+
+    Route::get('/admin/rekap/siswa', [AdminAbsensiController::class, 'rekapSiswa'])->name('admin.absensi.rekap-siswa');
+    Route::get('/admin/rekap/guru', [AdminAbsensiController::class, 'rekapGuru'])->name('admin.absensi.rekap-guru');
 });
 
 Route::group(['middleware' => 'auth:guru'], function () {
@@ -108,6 +112,9 @@ Route::group(['middleware' => 'auth:guru'], function () {
     Route::get('/guru/izin', [GuruIzinController::class, 'index'])->name('guru.izin');
     Route::post('/guru/izin', [GuruIzinController::class, 'store'])->name('guru.izin.store');
     Route::delete('/guru/izin/{id}', [GuruIzinController::class, 'destroy'])->name('guru.izin.destroy');
+
+    Route::get('/guru/izin/approve/{id}', [GuruDashboardController::class, 'approve'])->name('guru.izin.approve');
+    Route::get('/guru/izin/reject/{id}', [GuruDashboardController::class, 'reject'])->name('guru.izin.reject');
 });
 Route::group(['middleware' => 'auth:siswa'], function () {
     Route::get('/siswa/dashboard', [SiswaDashboardController::class, 'index'])->name('siswa.dashboard');
@@ -124,7 +131,6 @@ Route::group(['middleware' => 'auth:siswa'], function () {
     Route::get('/siswa/izin', [SiswaIzinController::class, 'index'])->name('siswa.izin');
     Route::post('/siswa/izin', [SiswaIzinController::class, 'store'])->name('siswa.izin.store');
     Route::delete('/siswa/izin/{id}', [SiswaIzinController::class, 'destroy'])->name('siswa.izin.destroy');
-
 });
 Route::group(['middleware' => 'auth:kepsek'], function () {
     Route::get('/kepsek/dashboard', [KepsekDashboardController::class, 'index'])->name('kepsek.dashboard');
@@ -138,4 +144,7 @@ Route::group(['middleware' => 'auth:kepsek'], function () {
 
     Route::get('/kepsek/izin/approve/{id}', [KepsekIzinController::class, 'approve'])->name('kepsek.izin.approve');
     Route::get('/kepsek/izin/reject/{id}', [KepsekIzinController::class, 'reject'])->name('kepsek.izin.reject');
+
+    Route::get('/kepsek/rekap/siswa', [RekapController::class, 'rekapSiswa'])->name('kepsek.rekap-siswa');
+    Route::get('/kepsek/rekap/guru', [RekapController::class, 'rekapGuru'])->name('kepsek.rekap-guru');
 });
