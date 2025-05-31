@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Kepsek;
+namespace App\Http\Controllers\kepsek;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

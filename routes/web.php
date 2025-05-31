@@ -7,27 +7,31 @@ use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\KelasController;
+
 use App\Http\Controllers\admin\MapelController;
-use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
-
+use App\Http\Controllers\kepsek\IzinController as KepsekIzinController;
 use App\Http\Controllers\admin\JadwalController;
-use App\Http\Controllers\admin\HariLiburController;
 
+use App\Http\Controllers\admin\HariLiburController;
 use App\Http\Controllers\guru\GuruJadwalController;
+
 use App\Http\Controllers\siswa\SiswaJadwalController;
 use App\Http\Controllers\admin\AdminAbsensiController;
+use App\Http\Controllers\guru\IzinController as GuruIzinController;
 
+use App\Http\Controllers\siswa\IzinController as SiswaIzinController;
+use App\Http\Controllers\kepsek\UserController as KepsekUserController;
 use App\Http\Controllers\guru\AbsensiController as GuruAbsensiController;
 use App\Http\Controllers\guru\ProfileController as GuruProfileController;
-use App\Http\Controllers\guru\DashboardController as GuruDashboardController;
-use App\Http\Controllers\siswa\AbsensiController as SiswaAbsensiController;
-use App\Http\Controllers\siswa\ProfileController as SiswaProfileController;
-use App\Http\Controllers\siswa\DashboardController as SiswaDashboardController;
-
-use App\Http\Controllers\kepsek\ProfileController as KepsekProfileController;
-use App\Http\Controllers\kepsek\DashboardController as KepsekDashboardController;
-use App\Http\Controllers\kepsek\UserController as KepsekUserController;
 use App\Http\Controllers\kepsek\JadwalController as KepsekJadwalController;
+use App\Http\Controllers\siswa\AbsensiController as SiswaAbsensiController;
+
+use App\Http\Controllers\siswa\ProfileController as SiswaProfileController;
+use App\Http\Controllers\guru\DashboardController as GuruDashboardController;
+use App\Http\Controllers\kepsek\ProfileController as KepsekProfileController;
+use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\siswa\DashboardController as SiswaDashboardController;
+use App\Http\Controllers\kepsek\DashboardController as KepsekDashboardController;
 
 // Route::get('/', function ()
 //     return view('welcome');
@@ -100,6 +104,10 @@ Route::group(['middleware' => 'auth:guru'], function () {
     Route::post('/guru/absensi/riwayat', [GuruAbsensiController::class, 'riwayat'])->name('guru.absensi.riwayat');
 
     Route::get('/guru/jadwal', [GuruJadwalController::class, 'jadwalMengajarGuru'])->name('guru.jadwal');
+
+    Route::get('/guru/izin', [GuruIzinController::class, 'index'])->name('guru.izin');
+    Route::post('/guru/izin', [GuruIzinController::class, 'store'])->name('guru.izin.store');
+    Route::delete('/guru/izin/{id}', [GuruIzinController::class, 'destroy'])->name('guru.izin.destroy');
 });
 Route::group(['middleware' => 'auth:siswa'], function () {
     Route::get('/siswa/dashboard', [SiswaDashboardController::class, 'index'])->name('siswa.dashboard');
@@ -113,6 +121,10 @@ Route::group(['middleware' => 'auth:siswa'], function () {
 
     Route::get('/siswa/jadwal', [SiswaJadwalController::class, 'jadwalSiswa'])->name('siswa.jadwal');
 
+    Route::get('/siswa/izin', [SiswaIzinController::class, 'index'])->name('siswa.izin');
+    Route::post('/siswa/izin', [SiswaIzinController::class, 'store'])->name('siswa.izin.store');
+    Route::delete('/siswa/izin/{id}', [SiswaIzinController::class, 'destroy'])->name('siswa.izin.destroy');
+
 });
 Route::group(['middleware' => 'auth:kepsek'], function () {
     Route::get('/kepsek/dashboard', [KepsekDashboardController::class, 'index'])->name('kepsek.dashboard');
@@ -123,4 +135,7 @@ Route::group(['middleware' => 'auth:kepsek'], function () {
     Route::get('/kepsek/data-siswa', [KepsekUserController::class, 'indexSiswa'])->name('kepsek.show-siswa');
     Route::get('/kepsek/Jadwal-Pelajaran', [KepsekJadwalController::class, 'showJadwal'])->name('kepsek.show-jadwal');
     Route::get('/kepsek/Mata-Pelajaran', [KepsekJadwalController::class, 'showMapel'])->name('kepsek.show-mapel');
+
+    Route::get('/kepsek/izin/approve/{id}', [KepsekIzinController::class, 'approve'])->name('kepsek.izin.approve');
+    Route::get('/kepsek/izin/reject/{id}', [KepsekIzinController::class, 'reject'])->name('kepsek.izin.reject');
 });

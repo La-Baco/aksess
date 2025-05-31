@@ -139,8 +139,8 @@
                             <span>Absen</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ Request::is('siswa/izin') ? 'active' : '' }} ">
-                        <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
+                    <li class="sidebar-item {{ Request::is('guru/izin') ? 'active' : '' }} ">
+                        <a href="{{ route('guru.izin') }}" class='sidebar-link'>
                             <i class="bi bi-envelope-fill"></i>
                             <span>Pengajuan Izin</span>
                         </a>
@@ -175,12 +175,6 @@
                     <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
                         <i class="bi bi-calendar-check-fill"></i>
                         <span>Rekap Kehadiran</span>
-                    </a>
-                </li>
-                <li class="sidebar-item {{ Request::is('siswa/rekap-izin') ? 'active' : '' }} ">
-                    <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-text-fill"></i>
-                        <span>Rekap Izin</span>
                     </a>
                 </li>
 
@@ -234,7 +228,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item {{ Request::is('siswa/izin') ? 'active' : '' }} ">
-                        <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
+                        <a href="{{ route('siswa.izin') }}" class='sidebar-link'>
                             <i class="bi bi-envelope-fill"></i>
                             <span>Pengajuan Izin</span>
                         </a>

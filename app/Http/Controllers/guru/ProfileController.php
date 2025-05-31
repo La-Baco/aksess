@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Guru;
+namespace App\Http\Controllers\guru;
 
 use App\Models\Kelas;
 use Illuminate\Http\Request;
