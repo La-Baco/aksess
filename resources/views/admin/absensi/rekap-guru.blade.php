@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Rekap Absensi Guru')
+@section('title', 'Rekap Absensi Siswa')
 
 @section('content')
 <section class="section">
@@ -8,8 +8,9 @@
             <div class="card shadow-sm">
                 <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
                     <h4 class="card-title mb-2 mb-md-0">
-                        Rekap Absensi Guru Bulan {{ \Carbon\Carbon::create(null, $bulan)->translatedFormat('F') }}
+                        Rekap Absensi Siswa Bulan {{ \Carbon\Carbon::create(null, $bulan)->translatedFormat('F') }}
                     </h4>
+
                     <form method="GET" action="{{ route('admin.absensi.rekap-guru') }}" class="d-flex align-items-center gap-2">
                         <label for="bulan" class="mb-0 text-nowrap">Pilih Bulan:</label>
                         <select name="bulan" id="bulan" class="form-select form-select-sm" onchange="this.form.submit()">
@@ -23,7 +24,6 @@
                 </div>
 
                 <div class="card-body">
-
                     <div class="table-responsive">
                         <table class="table table-bordered mb-0">
                             <thead class="bg-white text-center text-dark">
@@ -35,19 +35,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($guruList as $guru)
+                                @forelse ($guruList as $guru)
                                     <tr>
                                         <td class="align-middle">{{ $guru->name }}</td>
                                         @for ($i = 1; $i <= $jumlahHari; $i++)
                                             @php
                                                 $tanggal = \Carbon\Carbon::create(null, $bulan, $i)->format('Y-m-d');
-                                                $status = $absensi[$guru->id][$tanggal] ?? '';
+                                                $status = $rekap[$guru->id][$tanggal] ?? '';
                                                 $warna = match($status) {
                                                     'Hadir' => 'success',
                                                     'Alpha' => 'danger',
-                                                    'Izin'  => 'warning',
+                                                    'Izin' => 'warning',
                                                     'Sakit' => 'info',
-                                                    default => 'light'
+                                                    default => 'light',
                                                 };
                                                 $textColor = in_array($warna, ['light', 'warning']) ? 'text-dark' : 'text-white';
                                             @endphp
@@ -56,7 +56,13 @@
                                             </td>
                                         @endfor
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="{{ $jumlahHari + 1 }}" class="text-center text-muted">
+                                            Tidak ada data siswa.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
