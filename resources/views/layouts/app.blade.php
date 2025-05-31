@@ -44,21 +44,23 @@
                         <div class="collapse navbar-collapse" id="customNavbarContent">
                             <ul class="navbar-nav ms-auto d-flex align-items-center gap-3">
 
-
-
-
                             <!-- User Profile Dropdown -->
                             <div class="dropdown ms-4 me-3" id="dropdownUser">
-                                <a href="#" class="d-flex align-items-center text-decoration-none"
-                                    id="userToggle">
+                                <a href="#" class="d-flex align-items-center text-decoration-none" id="userToggle">
                                     <div class="me-3 text-end user-info">
                                         <div class="fw-semibold text-dark">{{ auth()->user()->name }}</div>
-                                        <small class="text-secondary">    {{ auth()->user()->role === 'kepsek' ? 'Kepala Sekolah' : ucfirst(auth()->user()->role) }}</small>
+                                        <small class="text-secondary">
+                                            {{ auth()->user()->role === 'kepsek' ? 'Kepala Sekolah' : ucfirst(auth()->user()->role) }}
+                                        </small>
                                     </div>
-                                    <img src="{{ asset('assets/images/faces/2.jpg') }}" alt="User Avatar"
-                                        class="rounded-circle border border-2 border-primary" width="42"
-                                        height="42" />
+                                    <img src="{{ auth()->user()->foto
+                                    ? asset(Storage::url(auth()->user()->foto))
+                                    : asset('assets/images/faces/default.jpg') }}"
+                             alt="User Avatar"
+                             class="rounded-circle border border-2 border-primary" width="42" height="42" />
+
                                 </a>
+
                                 <ul class="dropdown-menu dropdown-menu-end shadow p-2 " style=" right:0rem !important"
                                     aria-labelledby="userToggle" style="display:none;">
                                     <li>

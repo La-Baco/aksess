@@ -18,10 +18,10 @@ class DashboardController extends Controller
         $guru = Auth::user();
 
         // 1. Cek apakah guru adalah wali kelas
-$kelasWali = Kelas::with('siswa')
-    ->whereHas('guruWali', function ($q) use ($guru) {
-        $q->where('guru_id', $guru->id);
-    })->first();
+        $kelasWali = Kelas::with('siswa')
+            ->whereHas('guruWali', function ($q) use ($guru) {
+                $q->where('guru_id', $guru->id);
+            })->first();
 
         // 2. Ambil jadwal mengajar hari ini
         $todayName = Carbon::now()->translatedFormat('l'); // Senin, Selasa, dst
@@ -63,9 +63,9 @@ $kelasWali = Kelas::with('siswa')
             ->get();
 
         $izinTerbaru = Izin::with('user')
-        ->orderBy('created_at', 'desc')
-        ->limit(5)
-        ->get();
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
 
         return view('guru.dashboard', compact(
             'guru',
@@ -75,6 +75,5 @@ $kelasWali = Kelas::with('siswa')
             'izinTerbaru',
             'nextHolidays'
         ));
-
     }
 }
