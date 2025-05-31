@@ -95,6 +95,16 @@ class AdminAbsensiController extends Controller
 
         return redirect()->back()->with('success', 'Pengaturan absensi berhasil disimpan.');
     }
+    
+    public function settingReset()
+    {
+        $setting = SettingAbsensi::first();
+        if ($setting) {
+            $setting->delete();
+            return redirect()->back()->with('success', 'Pengaturan absensi berhasil direset.');
+        }
+        return redirect()->back()->with('error', 'Pengaturan absensi tidak ditemukan.');
+    }
 
     public function rekapSiswa(Request $request)
     {
@@ -145,13 +155,5 @@ class AdminAbsensiController extends Controller
         return view('admin.absensi.rekap-guru', compact('guruList', 'absensi', 'bulan', 'jumlahHari'));
     }
 
-    public function settingReset()
-    {
-        $setting = SettingAbsensi::first();
-        if ($setting) {
-            $setting->delete();
-            return redirect()->back()->with('success', 'Pengaturan absensi berhasil direset.');
-        }
-        return redirect()->back()->with('error', 'Pengaturan absensi tidak ditemukan.');
-    }
+
 }

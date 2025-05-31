@@ -4,34 +4,34 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 
+use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\KelasController;
-
 use App\Http\Controllers\admin\MapelController;
 use App\Http\Controllers\admin\JadwalController;
-use App\Http\Controllers\kepsek\RekapController;
-
 use App\Http\Controllers\admin\HariLiburController;
-use App\Http\Controllers\guru\GuruJadwalController;
-
-use App\Http\Controllers\siswa\SiswaJadwalController;
 use App\Http\Controllers\admin\AdminAbsensiController;
-use App\Http\Controllers\guru\IzinController as GuruIzinController;
 
-use App\Http\Controllers\siswa\IzinController as SiswaIzinController;
+use App\Http\Controllers\kepsek\DashboardController as KepsekDashboardController;
+use App\Http\Controllers\kepsek\RekapController;
 use App\Http\Controllers\kepsek\IzinController as KepsekIzinController;
 use App\Http\Controllers\kepsek\UserController as KepsekUserController;
-use App\Http\Controllers\guru\AbsensiController as GuruAbsensiController;
-use App\Http\Controllers\guru\ProfileController as GuruProfileController;
 use App\Http\Controllers\kepsek\JadwalController as KepsekJadwalController;
+use App\Http\Controllers\kepsek\ProfileController as KepsekProfileController;
 
+use App\Http\Controllers\guru\DashboardController as GuruDashboardController;
+use App\Http\Controllers\guru\GuruJadwalController;
+use App\Http\Controllers\guru\ProfileController as GuruProfileController;
+use App\Http\Controllers\guru\AbsensiController as GuruAbsensiController;
+use App\Http\Controllers\guru\IzinController as GuruIzinController;
+
+use App\Http\Controllers\siswa\DashboardController as SiswaDashboardController;
+use App\Http\Controllers\siswa\SiswaJadwalController;
+use App\Http\Controllers\siswa\IzinController as SiswaIzinController;
 use App\Http\Controllers\siswa\AbsensiController as SiswaAbsensiController;
 use App\Http\Controllers\siswa\ProfileController as SiswaProfileController;
-use App\Http\Controllers\guru\DashboardController as GuruDashboardController;
-use App\Http\Controllers\kepsek\ProfileController as KepsekProfileController;
-use App\Http\Controllers\admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\siswa\DashboardController as SiswaDashboardController;
-use App\Http\Controllers\kepsek\DashboardController as KepsekDashboardController;
+
+
 
 // Route::get('/', function ()
 //     return view('welcome');
