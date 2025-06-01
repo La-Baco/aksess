@@ -115,6 +115,8 @@ Route::group(['middleware' => 'auth:guru'], function () {
 
     Route::get('/guru/izin/approve/{id}', [GuruDashboardController::class, 'approve'])->name('guru.izin.approve');
     Route::get('/guru/izin/reject/{id}', [GuruDashboardController::class, 'reject'])->name('guru.izin.reject');
+    Route::get('/guru/change-password', [GuruProfileController::class, 'changePassword'])->name('guru.change-password');
+    Route::put('/guru/update-password', [GuruProfileController::class, 'updatePassword'])->name('guru.update-password');
 });
 Route::group(['middleware' => 'auth:siswa'], function () {
     Route::get('/siswa/dashboard', [SiswaDashboardController::class, 'index'])->name('siswa.dashboard');
@@ -131,6 +133,8 @@ Route::group(['middleware' => 'auth:siswa'], function () {
     Route::get('/siswa/izin', [SiswaIzinController::class, 'index'])->name('siswa.izin');
     Route::post('/siswa/izin', [SiswaIzinController::class, 'store'])->name('siswa.izin.store');
     Route::delete('/siswa/izin/{id}', [SiswaIzinController::class, 'destroy'])->name('siswa.izin.destroy');
+    Route::get('/siswa/change-password', [SiswaProfileController::class, 'changePassword'])->name('siswa.change-password');
+    Route::put('/siswa/update-password', [SiswaProfileController::class, 'updatePassword'])->name('siswa.update-password');
 });
 Route::group(['middleware' => 'auth:kepsek'], function () {
     Route::get('/kepsek/dashboard', [KepsekDashboardController::class, 'index'])->name('kepsek.dashboard');
@@ -147,4 +151,6 @@ Route::group(['middleware' => 'auth:kepsek'], function () {
 
     Route::get('/kepsek/rekap/siswa', [RekapController::class, 'rekapSiswa'])->name('kepsek.rekap-siswa');
     Route::get('/kepsek/rekap/guru', [RekapController::class, 'rekapGuru'])->name('kepsek.rekap-guru');
+    Route::get('/kepsek/change-password', [KepsekProfileController::class, 'changePassword'])->name('kepsek.change-password');
+    Route::put('/kepsek/update-password', [KepsekProfileController::class, 'updatePassword'])->name('kepsek.update-password');
 });

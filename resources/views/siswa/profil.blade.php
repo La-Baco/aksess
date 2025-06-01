@@ -84,6 +84,9 @@
                                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
                                     <i class="bi bi-pencil-square me-2"></i> Edit Profil
                                 </button>
+                                <a href="{{ route('siswa.change-password') }}" class="btn btn-warning">
+                                    <i class="bi bi-lock-fill me-2"></i> Change Password
+                                </a>
                             </div>
                         </div>
                     </div>
