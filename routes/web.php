@@ -95,6 +95,8 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::get('/admin/rekap/siswa', [AdminAbsensiController::class, 'rekapSiswa'])->name('admin.absensi.rekap-siswa');
     Route::get('/admin/rekap/guru', [AdminAbsensiController::class, 'rekapGuru'])->name('admin.absensi.rekap-guru');
+    Route::post('/admin/absensi/update-status', [AdminAbsensiController::class, 'updateStatus'])->name('absensi.update-status');
+
 });
 
 Route::group(['middleware' => 'auth:guru'], function () {
@@ -105,6 +107,7 @@ Route::group(['middleware' => 'auth:guru'], function () {
 
     Route::get('/guru/absensi', [GuruAbsensiController::class, 'index'])->name('guru.absensi');
     Route::post('/guru/absensi', [GuruAbsensiController::class, 'store'])->name('guru.absensi.store');
+    Route::get('/guru/rekap-kehadiran', [GuruAbsensiController::class, 'rekapKehadiran'])->name('guru.rekap-kehadiran');
     Route::post('/guru/absensi/riwayat', [GuruAbsensiController::class, 'riwayat'])->name('guru.absensi.riwayat');
 
     Route::get('/guru/jadwal', [GuruJadwalController::class, 'jadwalMengajarGuru'])->name('guru.jadwal');
@@ -126,6 +129,7 @@ Route::group(['middleware' => 'auth:siswa'], function () {
 
     Route::get('/siswa/absensi', [SiswaAbsensiController::class, 'index'])->name('siswa.absensi');
     Route::post('/siswa/absensi', [SiswaAbsensiController::class, 'store'])->name('siswa.absensi.store');
+    Route::get('/siswa/rekap-kehadiran', [SiswaAbsensiController::class, 'rekapKehadiran'])->name('siswa.rekap-kehadiran');
     Route::get('/siswa/absensi/riwayat', [SiswaAbsensiController::class, 'riwayat'])->name('siswa.absensi.riwayat');
 
     Route::get('/siswa/jadwal', [SiswaJadwalController::class, 'jadwalSiswa'])->name('siswa.jadwal');
@@ -151,6 +155,8 @@ Route::group(['middleware' => 'auth:kepsek'], function () {
 
     Route::get('/kepsek/rekap/siswa', [RekapController::class, 'rekapSiswa'])->name('kepsek.rekap-siswa');
     Route::get('/kepsek/rekap/guru', [RekapController::class, 'rekapGuru'])->name('kepsek.rekap-guru');
+    Route::post('/kepsek/update-status', [RekapController::class, 'updateStatus'])->name('kepsek.update-status');
+
     Route::get('/kepsek/change-password', [KepsekProfileController::class, 'changePassword'])->name('kepsek.change-password');
     Route::put('/kepsek/update-password', [KepsekProfileController::class, 'updatePassword'])->name('kepsek.update-password');
 });

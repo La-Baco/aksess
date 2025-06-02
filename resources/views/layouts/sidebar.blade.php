@@ -135,33 +135,11 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-collection-fill"></i>
-                            <span>Extra Components</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="extra-component-avatar.html">Avatar</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="extra-component-toastify.html">Toastify</a>
-                            </li>
-
-                    </li>
-                </ul>
-
-
-
-
 
                 <li class="sidebar-title">Kehadiran &amp; Izin</li>
 
-                <li class="sidebar-item {{ Request::is('siswa/rekap-kehadiran') ? 'active' : '' }} ">
-                    <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
+                <li class="sidebar-item {{ Request::is('guru/rekap-kehadiran') ? 'active' : '' }} ">
+                    <a href="{{ route('guru.rekap-kehadiran') }}" class='sidebar-link'>
                         <i class="bi bi-calendar-check-fill"></i>
                         <span>Rekap Kehadiran</span>
                     </a>
@@ -226,7 +204,7 @@
                     <li class="sidebar-title">Kehadiran &amp; Izin</li>
 
                     <li class="sidebar-item {{ Request::is('siswa/rekap-kehadiran') ? 'active' : '' }} ">
-                        <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
+                        <a href="{{ route('siswa.rekap-kehadiran') }}" class='sidebar-link'>
                             <i class="bi bi-calendar-check-fill"></i>
                             <span>Rekap Kehadiran</span>
                         </a>
@@ -236,22 +214,6 @@
                             <i class="bi bi-file-earmark-text-fill"></i>
                             <span>Rekap Izin</span>
                         </a>
-                    </li>
-
-
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-grid-1x2-fill"></i>
-                            <span>Layouts</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="layout-default.html">Default Layout</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="layout-vertical-1-column.html">1 Column</a>
-                            </li>
-                        </ul>
                     </li>
 
 

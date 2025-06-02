@@ -7,150 +7,227 @@ use App\Models\Izin;
 use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Absensi;
+use App\Models\HariLibur;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class RekapController extends Controller
 {
     public function rekapSiswa(Request $request)
-    {
-        $bulan = (int) $request->get('bulan', now()->month);
-        $tahun = now()->year;
-        $kelasId = $request->get('kelas_id');
+{
+    $bulan = (int) $request->get('bulan', now()->month);
+    $tahun = now()->year;
+    $kelasId = $request->get('kelas_id');
 
-        $jumlahHari = Carbon::create($tahun, $bulan)->daysInMonth;
-        $kelasList = Kelas::orderBy('nama_kelas')->get();
-        $kelasTerpilih = $kelasId ? Kelas::find($kelasId) : null;
+    $jumlahHari = Carbon::create($tahun, $bulan)->daysInMonth;
+    $kelasList = Kelas::orderBy('nama_kelas')->get();
+    $kelasTerpilih = $kelasId ? Kelas::find($kelasId) : null;
+    $hariLibur = HariLibur::pluck('tanggal')->toArray();
+    $siswaList = $kelasTerpilih
+        ? $kelasTerpilih->siswa()->orderBy('name')->get()
+        : User::where('role', 'siswa')->orderBy('name')->get();
 
-        $siswaList = $kelasTerpilih ? $kelasTerpilih->siswa()->orderBy('name')->get() : User::where('role', 'siswa')->orderBy('name')->get();
+    $absensi = Absensi::whereIn('user_id', $siswaList->pluck('id'))
+        ->whereYear('tanggal', $tahun)
+        ->whereMonth('tanggal', $bulan)
+        ->get()
+        ->groupBy('user_id')
+        ->map(function ($items) {
+            return $items->keyBy(fn($item) => Carbon::parse($item->tanggal)->format('Y-m-d'))->map->status;
+        });
 
-        // Ambil absensi per user per tanggal
-        $absensi = Absensi::whereIn('user_id', $siswaList->pluck('id'))
-            ->whereYear('tanggal', $tahun)
-            ->whereMonth('tanggal', $bulan)
-            ->get()
-            ->groupBy('user_id')
-            ->map(function ($items) {
-                return $items->keyBy(fn($item) => $item->tanggal->format('Y-m-d'))->map->status;
+    $izinList = Izin::whereIn('user_id', $siswaList->pluck('id'))
+        ->where('status', 'Disetujui')
+        ->where(function ($q) use ($bulan, $tahun) {
+            $q->where(function ($q2) use ($bulan, $tahun) {
+                $q2->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun);
+            })->orWhere(function ($q2) use ($bulan, $tahun) {
+                $q2->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun);
             });
+        })
+        ->get()
+        ->groupBy('user_id');
 
-        // Ambil izin yang disetujui per user
-        $izinList = Izin::whereIn('user_id', $siswaList->pluck('id'))
-            ->where('status', 'Disetujui')
-            ->where(function ($q) use ($bulan, $tahun) {
-                $q->where(function ($q2) use ($bulan, $tahun) {
-                    $q2->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun);
-                })->orWhere(function ($q2) use ($bulan, $tahun) {
-                    $q2->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun);
-                });
-            })
-            ->get()
-            ->groupBy('user_id');
+    $liburTanggal = HariLibur::whereYear('tanggal', $tahun)
+        ->whereMonth('tanggal', $bulan)
+        ->pluck('tanggal')
+        ->map(fn($tgl) => Carbon::parse($tgl)->format('Y-m-d'))
+        ->toArray();
+    $penandaHari = [];
+        for ($i = 1; $i <= $jumlahHari; $i++) {
+            $tanggal = Carbon::create($tahun, $bulan, $i);
+            $tglString = $tanggal->format('Y-m-d');
 
-        $rekap = [];
-        $hariIni = Carbon::today();
+            $tags = [];
+            if ($tanggal->isSunday()) {
+                $tags[] = 'Minggu';
+            }
+            if (in_array($tglString, $liburTanggal)) {
+                $tags[] = 'Libur';
+            }
+
+            if ($tags) {
+                $penandaHari[$tglString] = $tags;
+            }
+        }
+
+    $rekap = [];
+    for ($i = 1; $i <= $jumlahHari; $i++) {
+        $tanggal = Carbon::create($tahun, $bulan, $i)->format('Y-m-d');
 
         foreach ($siswaList as $siswa) {
-            for ($i = 1; $i <= $jumlahHari; $i++) {
-                $tanggalCarbon = Carbon::create($tahun, $bulan, $i);
-                $tanggal = $tanggalCarbon->format('Y-m-d');
+            $rekap[$siswa->id][$tanggal] = '';
 
-                // Default status kosong
-                $rekap[$siswa->id][$tanggal] = '';
-
-                // Jika tanggal di masa depan, biarkan kosong
-                if ($tanggalCarbon->gt($hariIni)) {
-                    continue;
-                }
-
-                // Jika sudah ada absensi, pakai status absensi
-                if (isset($absensi[$siswa->id][$tanggal])) {
-                    $rekap[$siswa->id][$tanggal] = $absensi[$siswa->id][$tanggal];
-                    continue;
-                }
-
-                // Jika user sedang izin pada tanggal ini
-                $izin = $izinList->get($siswa->id)?->first(function ($izin) use ($tanggal) {
-                    return $tanggal >= $izin->tanggal_mulai && $tanggal <= $izin->tanggal_selesai;
-                });
-
-                if ($izin) {
-                    $rekap[$siswa->id][$tanggal] = 'Izin';
-                    continue;
-                }
-
-                // Jika tidak ada absensi dan tidak izin, untuk hari ini dan sebelumnya status Alpha
-                $rekap[$siswa->id][$tanggal] = 'Alpha';
+            if (isset($absensi[$siswa->id][$tanggal])) {
+                $rekap[$siswa->id][$tanggal] = $absensi[$siswa->id][$tanggal];
+                continue;
             }
-        }
 
-        return view('admin.absensi.rekap-siswa', compact('bulan', 'jumlahHari', 'kelasList', 'kelasTerpilih', 'siswaList', 'rekap'));
-    }
-
-    public function rekapGuru(Request $request)
-    {
-        $bulan = (int) $request->get('bulan', now()->month);
-        $tahun = now()->year;
-        $jumlahHari = Carbon::create($tahun, $bulan)->daysInMonth;
-
-        // Ambil semua siswa (tanpa filter kelas)
-        $guruList = User::where('role', 'guru')->orderBy('name')->get();
-
-        // Ambil absensi per user per tanggal
-        $absensi = Absensi::whereIn('user_id', $guruList->pluck('id'))
-            ->whereYear('tanggal', $tahun)
-            ->whereMonth('tanggal', $bulan)
-            ->get()
-            ->groupBy('user_id')
-            ->map(function ($items) {
-                return $items->keyBy(fn($item) => $item->tanggal->format('Y-m-d'))->map->status;
+            $izin = $izinList->get($siswa->id)?->first(function ($izin) use ($tanggal) {
+                return $tanggal >= $izin->tanggal_mulai && $tanggal <= $izin->tanggal_selesai;
             });
 
-        // Ambil izin yang disetujui per user
-        $izinList = Izin::whereIn('user_id', $guruList->pluck('id'))
-            ->where('status', 'Disetujui')
-            ->where(function ($q) use ($bulan, $tahun) {
-                $q->where(function ($q2) use ($bulan, $tahun) {
-                    $q2->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun);
-                })->orWhere(function ($q2) use ($bulan, $tahun) {
-                    $q2->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun);
-                });
-            })
-            ->get()
-            ->groupBy('user_id');
+            if ($izin) {
+                $rekap[$siswa->id][$tanggal] = 'Izin';
+                continue;
+            }
 
-        $rekap = [];
-        $hariIni = Carbon::today();
+            $rekap[$siswa->id][$tanggal] = $this->defaultStatus($tanggal, $liburTanggal);
+        }
+    }
 
-        foreach ($guruList as $guru) {
-            for ($i = 1; $i <= $jumlahHari; $i++) {
-                $tanggalCarbon = Carbon::create($tahun, $bulan, $i);
-                $tanggal = $tanggalCarbon->format('Y-m-d');
+    return view('kepsek.rekap-siswa', [
+        'bulan' => $bulan,
+        'jumlahHari' => $jumlahHari,
+        'kelasList' => $kelasList,
+        'kelasTerpilih' => $kelasTerpilih,
+        'siswaList' => $siswaList,
+        'rekap' => $rekap,
+        'kelas_id' => $kelasId,
+        'penandaHari' => $penandaHari,
+        'hariLibur' => $hariLibur,
+    ]);
+}
+private function defaultStatus($tglString, array $hariLibur = [])
+{
+    $tanggal = Carbon::parse($tglString);
+    $hariIni = Carbon::today();
 
-                $rekap[$guru->id][$tanggal] = '';
+    if ($tanggal->isSunday()) {
+        return ''; // Hari Minggu, tidak dianggap Alpha
+    }
 
-                if ($tanggalCarbon->gt($hariIni)) {
-                    continue;
-                }
+    if (in_array($tglString, $hariLibur)) {
+        return ''; // Hari libur, tidak dianggap Alpha
+    }
 
-                if (isset($absensi[$guru->id][$tanggal])) {
-                    $rekap[$guru->id][$tanggal] = $absensi[$guru->id][$tanggal];
-                    continue;
-                }
+    if ($tanggal->lte($hariIni)) {
+        return 'Alpha'; // Hari lalu atau hari ini, tidak hadir
+    }
 
-                $izin = $izinList->get($guru->id)?->first(function ($izin) use ($tanggal) {
-                    return $tanggal >= $izin->tanggal_mulai && $tanggal <= $izin->tanggal_selesai;
-                });
+    return ''; // Hari depan, biarkan kosong
+}
 
-                if ($izin) {
-                    $rekap[$guru->id][$tanggal] = 'Izin';
-                    continue;
-                }
+public function rekapGuru(Request $request)
+{
+    $bulan = (int) $request->get('bulan', now()->month);
+    $tahun = now()->year;
+    $jumlahHari = Carbon::create($tahun, $bulan)->daysInMonth;
 
-                $rekap[$guru->id][$tanggal] = 'Alpha';
+    $guruList = User::where('role', 'guru')->orderBy('name')->get();
+    $hariLibur = HariLibur::pluck('tanggal')->toArray();
+    $absensi = Absensi::whereIn('user_id', $guruList->pluck('id'))
+        ->whereYear('tanggal', $tahun)
+        ->whereMonth('tanggal', $bulan)
+        ->get()
+        ->groupBy('user_id')
+        ->map(function ($items) {
+            return $items->keyBy(fn($item) => Carbon::parse($item->tanggal)->format('Y-m-d'))->map->status;
+        });
+
+    $izinList = Izin::whereIn('user_id', $guruList->pluck('id'))
+        ->where('status', 'Disetujui')
+        ->where(function ($q) use ($bulan, $tahun) {
+            $q->where(function ($q2) use ($bulan, $tahun) {
+                $q2->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun);
+            })->orWhere(function ($q2) use ($bulan, $tahun) {
+                $q2->whereMonth('tanggal_selesai', $bulan)->whereYear('tanggal_selesai', $tahun);
+            });
+        })
+        ->get()
+        ->groupBy('user_id');
+
+    $liburTanggal = HariLibur::whereYear('tanggal', $tahun)
+        ->whereMonth('tanggal', $bulan)
+        ->pluck('tanggal')
+        ->map(fn($tgl) => Carbon::parse($tgl)->format('Y-m-d'))
+        ->toArray();
+
+        $penandaHari = [];
+        for ($i = 1; $i <= $jumlahHari; $i++) {
+            $tanggal = Carbon::create($tahun, $bulan, $i);
+            $tglString = $tanggal->format('Y-m-d');
+
+            $tags = [];
+            if ($tanggal->isSunday()) {
+                $tags[] = 'Minggu';
+            }
+            if (in_array($tglString, $liburTanggal)) {
+                $tags[] = 'Libur';
+            }
+
+            if ($tags) {
+                $penandaHari[$tglString] = $tags;
             }
         }
 
-        return view('admin.absensi.rekap-guru', compact('bulan', 'jumlahHari', 'guruList', 'rekap'));
+    $rekap = [];
+    for ($i = 1; $i <= $jumlahHari; $i++) {
+        $tanggal = Carbon::create($tahun, $bulan, $i)->format('Y-m-d');
+
+        foreach ($guruList as $guru) {
+            $rekap[$guru->id][$tanggal] = '';
+
+            if (isset($absensi[$guru->id][$tanggal])) {
+                $rekap[$guru->id][$tanggal] = $absensi[$guru->id][$tanggal];
+                continue;
+            }
+
+            $izin = $izinList->get($guru->id)?->first(function ($izin) use ($tanggal) {
+                return $tanggal >= $izin->tanggal_mulai && $tanggal <= $izin->tanggal_selesai;
+            });
+
+            if ($izin) {
+                $rekap[$guru->id][$tanggal] = 'Izin';
+                continue;
+            }
+
+            $rekap[$guru->id][$tanggal] = $this->defaultStatus($tanggal, $liburTanggal);
+        }
     }
+
+    return view('kepsek.rekap-guru', compact('bulan', 'jumlahHari', 'guruList', 'rekap','hariLibur','penandaHari'));
+}
+public function updateStatus(Request $request)
+{
+    $validated = $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'tanggal' => 'required|date',
+        'status' => 'required|in:Hadir,Alpha,Izin,Sakit',
+    ]);
+
+    $absen = Absensi::updateOrCreate(
+        [
+            'user_id' => $validated['user_id'],
+            'tanggal' => $validated['tanggal'],
+        ],
+        [
+            'status' => $validated['status'],
+            'dibuat_oleh' => Auth::id(), // <- tambahkan ini
+        ],
+    );
+
+    return back()->with('success', 'Status kehadiran berhasil diperbarui.');
+}
 }

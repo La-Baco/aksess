@@ -36,6 +36,7 @@
                             </div>
                             <h3 class="mt-3">{{ $user->name }}</h3>
                             <p class="text-muted text-capitalize">{{ $user->role }}</p>
+
                         </div>
                     </div>
                 </div>
@@ -80,9 +81,9 @@
                                 </div>
                             @endforeach
 
-                            <div class="mt-4 text-center">
+                            <div class="mt-4 ">
                                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-                                    <i class="bi bi-pencil-square me-2"></i> Edit Profil
+                                    <i class="bi bi-pencil-square me-2"></i> Edit Profile
                                 </button>
                                 <a href="{{ route('siswa.change-password') }}" class="btn btn-warning">
                                     <i class="bi bi-lock-fill me-2"></i> Change Password

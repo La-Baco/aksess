@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use Carbon\Carbon;
+use App\Models\Izin;
 use App\Models\Absensi;
 use App\Models\HariLibur;
 use Illuminate\Http\Request;
@@ -105,4 +106,84 @@ class AbsensiController extends Controller
 
         return view('guru.absensi-riwayat', compact('absensis'));
     }
+
+    public function rekapKehadiran(Request $request)
+    {
+        $bulan = $request->get('bulan', now()->month);
+        $user = Auth::user();
+        $jumlahHari = Carbon::create(null, $bulan)->daysInMonth;
+        $rekap = [];
+        $penandaHari = [];
+
+        // Ambil semua tanggal libur sekali saja
+        $hariLibur = HariLibur::pluck('tanggal')->toArray();
+
+        // Ambil izin disetujui user di bulan tersebut
+        $izinList = Izin::where('user_id', $user->id)
+            ->where('status', 'Disetujui')
+            ->where(function ($query) use ($bulan) {
+                $query->whereMonth('tanggal_mulai', $bulan)->orWhereMonth('tanggal_selesai', $bulan);
+            })
+            ->get();
+
+        for ($i = 1; $i <= $jumlahHari; $i++) {
+            $tanggal = Carbon::create(null, $bulan, $i);
+            $tglString = $tanggal->format('Y-m-d');
+
+            // --- Penanda Hari ---
+            if ($tanggal->isSunday()) {
+                $penandaHari[$tglString][] = 'Minggu';
+            }
+
+            if (in_array($tglString, $hariLibur)) {
+                $penandaHari[$tglString][] = 'Libur';
+            }
+
+            // --- Cek Izin ---
+            $izinAda = $izinList->first(function ($izin) use ($tglString) {
+                return $tglString >= $izin->tanggal_mulai && $tglString <= $izin->tanggal_selesai;
+            });
+
+            if ($izinAda) {
+                $rekap[$tglString] = 'Izin';
+                continue;
+            }
+
+            // --- Cek Absensi ---
+            $absen = Absensi::where('user_id', $user->id)->whereDate('tanggal', $tglString)->first();
+
+            if ($absen) {
+                $rekap[$tglString] = $absen->status;
+            } else {
+                $rekap[$tglString] = $this->defaultStatus($tglString, $hariLibur);
+            }
+        }
+
+        return view('guru.rekap-kehadiran', compact('rekap', 'bulan', 'jumlahHari', 'user', 'penandaHari'));
+    }
+
+    private function defaultStatus($tglString, array $hariLibur = [])
+    {
+        $tanggal = Carbon::parse($tglString);
+        $hariIni = Carbon::today();
+
+        // Jangan beri Alpha kalau hari Minggu
+        if ($tanggal->isSunday()) {
+            return ''; // Kosongkan, tidak dianggap Alpha
+        }
+
+        // Jangan beri Alpha kalau tanggal libur
+        if (in_array($tglString, $hariLibur)) {
+            return ''; // Kosongkan, tidak dianggap Alpha
+        }
+
+        // Jika hari lalu atau hari ini, tapi bukan Minggu/libur
+        if ($tanggal->lte($hariIni)) {
+            return 'Alpha';
+        }
+
+        return ''; // Hari depan, kosong
+    }
+
+
 }
