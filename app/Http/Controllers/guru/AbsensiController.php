@@ -26,85 +26,87 @@ class AbsensiController extends Controller
         $isMinggu = $today->translatedFormat('l') === 'Minggu';
         $isHariLibur = HariLibur::whereDate('tanggal', $today)->exists();
 
-        return view('guru.absensi', compact('setting', 'absenHariIni', 'isMinggu', 'isHariLibur'));
+        $mulaiAbsensi = $setting ? $setting->jam_mulai : null;
+        $selesaiAbsensi = $setting ? $setting->jam_selesai : null;
+
+        return view('guru.absensi', compact(
+            'setting',
+            'absenHariIni',
+            'isMinggu',
+            'isHariLibur',
+            'mulaiAbsensi',
+            'selesaiAbsensi'
+        ));
     }
-
-
 
     public function store(Request $request)
     {
+        $request->validate([
+            'lat' => 'required|numeric',
+            'long' => 'required|numeric',
+        ]);
+
         $user = Auth::user();
-        $today = Carbon::today();
-        $now = Carbon::now();
+        $tanggalHariIni = Carbon::now()->format('Y-m-d');
 
-        // Cek hari minggu
-        if ($now->isSunday()) {
-            return redirect()->back()->with('error', 'Hari ini adalah hari Minggu. Tidak dapat melakukan absensi.');
+        // Cek jika hari ini Minggu
+        if (Carbon::now()->isSunday()) {
+            return redirect()->back()->with('error', 'Hari ini adalah hari Minggu. Absensi tidak tersedia.');
         }
 
-        // Cek hari libur dari DB
-        $isLibur = HariLibur::whereDate('tanggal', $today)->exists();
+        // Cek jika hari ini adalah hari libur
+        $isLibur = HariLibur::where('tanggal', $tanggalHariIni)->exists();
         if ($isLibur) {
-            return redirect()->back()->with('error', 'Hari ini adalah hari libur. Tidak dapat melakukan absensi.');
+            return redirect()->back()->with('error', 'Hari ini adalah hari libur nasional.');
         }
 
-        // Cek absensi ganda
-        $sudahAbsen = Absensi::where('user_id', $user->id)
-            ->whereDate('tanggal', $today)
-            ->exists();
+        // Cek jika sudah absen hari ini
+        $sudahAbsen = Absensi::where('user_id', $user->id)->whereDate('waktu', $tanggalHariIni)->first();
         if ($sudahAbsen) {
             return redirect()->back()->with('error', 'Kamu sudah melakukan absensi hari ini.');
         }
 
-        // Ambil setting absensi
+        // Ambil setting lokasi sekolah
         $setting = SettingAbsensi::first();
         if (!$setting) {
             return redirect()->back()->with('error', 'Pengaturan absensi belum tersedia.');
         }
 
-        $jamAwal = Carbon::parse($setting->batas_awal);
-        $jamAkhir = Carbon::parse($setting->batas_akhir);
+        // Hitung jarak lokasi user ke sekolah
+        $distance = $this->hitungJarak(
+            $request->lat,
+            $request->long,
+            $setting->lokasi_lat,
+            $setting->lokasi_long
+        );
 
-        if ($now->lt($jamAwal) || $now->gte($jamAkhir)) {
-            return redirect()->back()->with('error', 'Belum bisa absen. Absen hanya diperbolehkan saat jam absensi berlangsung.');
-        } else {
-            $status = 'hadir';
+        if ($distance > $setting->radius_meter) {
+            return redirect()->back()->with('error', 'Kamu berada di luar area sekolah.');
         }
 
         // Simpan absensi
         Absensi::create([
             'user_id' => $user->id,
-            'tanggal' => $today,
-            'waktu' => $now,
-            'status' => $status,
-            'lat' => $request->lat,
-            'long' => $request->long,
+            'waktu' => Carbon::now(),
+            'status' => 'Hadir',
+            'latitude' => $request->lat,
+            'longitude' => $request->long,
         ]);
 
-        return redirect()->back()->with('success', 'Absensi berhasil disimpan dengan status: ' . $status);
+        return redirect()->back()->with('success', 'Absensi berhasil dilakukan.');
     }
 
-    protected function hitungJarak($lat1, $lon1, $lat2, $lon2)
+    // Fungsi untuk menghitung jarak Haversine
+    private function hitungJarak($lat1, $lon1, $lat2, $lon2)
     {
-        $earthRadius = 6371000; // meter
+        $R = 6371000; // Earth radius in meters
         $dLat = deg2rad($lat2 - $lat1);
         $dLon = deg2rad($lon2 - $lon1);
-
         $a = sin($dLat / 2) * sin($dLat / 2) +
-            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
-            sin($dLon / 2) * sin($dLon / 2);
-
+             cos(deg2rad($lat1)) * cos(deg2rad($lat2)) *
+             sin($dLon / 2) * sin($dLon / 2);
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
-        return $earthRadius * $c; // jarak dalam meter
-    }
-    public function riwayat()
-    {
-        $user = Auth::user();
-        $absensis = Absensi::where('user_id', $user->id)
-            ->orderBy('tanggal', 'desc')
-            ->get();
-
-        return view('guru.absensi-riwayat', compact('absensis'));
+        return $R * $c;
     }
 
     public function rekapKehadiran(Request $request)

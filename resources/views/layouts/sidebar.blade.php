@@ -80,6 +80,12 @@
                             <span>Hari Libur</span>
                         </a>
                     </li>
+                    <li class="sidebar-item {{ Request::is('admin/izin') ? 'active' : '' }} ">
+                        <a href="{{ route('admin.izin.index') }}" class='sidebar-link'>
+                            <i class="bi bi-calendar2-plus-fill"></i>
+                            <span>Izin</span>
+                        </a>
+                    </li>
                     <li class="sidebar-title">Rekap</li>
                     <li class="sidebar-item  {{ Request::is('admin/rekap/guru') ? 'active' : '' }}">
                         <a href="{{ route('admin.absensi.rekap-guru')}}" class='sidebar-link'>
