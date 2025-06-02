@@ -41,8 +41,15 @@
                         </a>
                     </div>
                     <h1 class="auth-title ">Log in.</h1>
-                    <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
+                    <p class="auth-subtitle mb-5">Please log in using your registered email and password.</p>
                     <div class="card border shadow-lg p-4">
+                        @if (session('msg'))
+                            <div class="alert alert-light-danger alert-dismissible fade show" role="alert">
+                                {{ session('msg') }}
+                            </div>
+                        @endif
+
+
                         <form action="{{ route('auth.verify') }}" method="POST">
                             @csrf
                             <div class="form-group position-relative has-icon-left mb-4">
@@ -88,7 +95,13 @@
             </div>
 
             <div class="col-lg-7 d-none d-lg-block">
-                <div id="auth-right"></div>
+                <div id="auth-right" class="d-flex justify-content-center align-items-center text-white text-center p-5" ">
+                    <div>
+                        <h1 class="display-5 fw-bold text-white">Selamat Datang di <br>AKSESS</h1>
+                        <p class="mt-4">Meningkatkan efisiensi dan akurasi absensi siswa secara digital.<br>Login untuk memulai!</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
