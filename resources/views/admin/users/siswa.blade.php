@@ -60,7 +60,7 @@
                                                         data-bs-target="#editSiswaModal{{ $siswa->id }}"><i
                                                             class="bi bi-pencil-square"></i>
                                                     </button>
-                                                    <form action="{{ route('admin.users.destroy', $siswa->id) }}"
+                                                    <form action="{{ route('admin.siswa.destroy', $siswa->id) }}"
                                                         method="POST" id="deleteForm{{ $siswa->id }}">
                                                         @csrf
                                                         @method('DELETE')
@@ -251,7 +251,7 @@
 
                 <div class="d-flex justify-content-end">
                     <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Kembali</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
 

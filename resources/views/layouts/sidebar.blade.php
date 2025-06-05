@@ -8,8 +8,10 @@
         <div class="sidebar-header">
             <div class="d-flex justify-content-between">
                 <div class="logo">
+                    {{-- <a href="{{ Auth::user()->role == 'admin' ? route('admin.dashboard') : Auth::user()->role == 'kepsek' ? route('kepsek.dashboard') : Auth::user()->role == 'guru' ? route('guru.dashboard') : Auth::user()->role == 'siswa' ? route('siswa.dashboard')}}"> --}}
                     <img src="{{ asset('assets/images/logo/aksess-logo.png') }}" alt="Logo"
                         style="width: 130px; height: auto;">
+                    {{-- </a> --}}
                 </div>
                 <div class="toggler">
                     <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -82,8 +84,8 @@
                     </li>
                     <li class="sidebar-item {{ Request::is('admin/izin') ? 'active' : '' }} ">
                         <a href="{{ route('admin.izin.index') }}" class='sidebar-link'>
-                            <i class="bi bi-calendar2-plus-fill"></i>
-                            <span>Izin</span>
+                            <i class="bi bi-inboxes-fill"></i>
+                            <span>Pengajuan Izin</span>
                         </a>
                     </li>
                     <li class="sidebar-title">Rekap</li>
@@ -215,12 +217,7 @@
                             <span>Rekap Kehadiran</span>
                         </a>
                     </li>
-                    <li class="sidebar-item {{ Request::is('siswa/rekap-izin') ? 'active' : '' }} ">
-                        <a href="{{ route('siswa.absensi') }}" class='sidebar-link'>
-                            <i class="bi bi-file-earmark-text-fill"></i>
-                            <span>Rekap Izin</span>
-                        </a>
-                    </li>
+
 
 
 

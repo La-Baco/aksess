@@ -35,14 +35,13 @@
             <div class="col-lg-5 col-12">
                 <div id="auth-left" class="p-5">
                     <div class="auth-logo">
-                        <a href="{{ route('home.index') }}">
-                            <img src="{{ asset('assets/images/logo/aksess-logo.png') }} "style="width: 200px; height: auto; display: block; margin: 0 auto;"
-                                alt="Logo" class="pt-2 ">
-                        </a>
                     </div>
-                    <h1 class="auth-title ">Log in.</h1>
-                    <p class="auth-subtitle mb-5">Please log in using your registered email and password.</p>
-                    <div class="card border shadow-lg p-4">
+                    <a href="{{ route('home.index') }}">
+                        <img src="{{ asset('assets/images/logo/aksess-logo.png') }} "style="width: 250px; height: auto; display: block; margin: 0 auto; padding-bottom: 50px;"
+                            alt="Logo" >
+                    </a>
+                    {{-- <h1 class="auth-title ">Log in.</h1>
+                    <p class="auth-subtitle mb-5">Please log in using your registered email and password.</p> --}}
                         @if (session('msg'))
                             <div class="alert alert-light-danger alert-dismissible fade show" role="alert">
                                 {{ session('msg') }}
@@ -80,7 +79,7 @@
                             <button class="btn btn-primary btn-block btn-lg shadow-lg mt-3" type="submit">Log
                                 in</button>
                         </form>
-                    </div>
+
 
 
                     <div class="text-center mt-5 text-lg fs-4">
@@ -96,10 +95,10 @@
 
             <div class="col-lg-7 d-none d-lg-block">
                 <div id="auth-right" class="d-flex justify-content-center align-items-center text-white text-center p-5" ">
-                    <div>
+                    {{-- <div>
                         <h1 class="display-5 fw-bold text-white">Selamat Datang di <br>AKSESS</h1>
                         <p class="mt-4">Meningkatkan efisiensi dan akurasi absensi siswa secara digital.<br>Login untuk memulai!</p>
-                    </div>
+                    </div> --}}
                 </div>
 
             </div>

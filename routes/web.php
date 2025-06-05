@@ -66,7 +66,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('/admin/users/store-siswa', [UserController::class, 'siswaStore'])->name('admin.store-siswa');
     Route::put('/admin/users/update-siswa/{user}', [UserController::class, 'siswaUpdate'])->name('admin.update-siswa');
 
-    Route::delete('/admin/users/destroy/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::delete('/admin/users/destroy/{user}', [UserController::class, 'destroyAdmin'])->name('admin.users.destroy');
+    Route::delete('/admin/guru/destroy/{user}', [UserController::class, 'destroyGuru'])->name('admin.guru.destroy');
+    Route::delete('/admin/siswa/destroy/{user}', [UserController::class, 'destroySiswa'])->name('admin.siswa.destroy');
 
     Route::get('/admin/kelas', [KelasController::class, 'index'])->name('admin.kelas.index');
     Route::post('/admin/kelas', [KelasController::class, 'store'])->name('admin.kelas.store');

@@ -71,7 +71,7 @@
                         @elseif($now->gt($selesai))
                             <div class="alert alert-danger">Waktu absensi telah berakhir pada pukul <strong>{{ $selesai->format('H:i') }}</strong>.</div>
                         @else
-                            <form action="{{ route('guru.absensi.store') }}" method="POST" id="absensiForm">
+                            <form action="{{ route('siswa.absensi.store') }}" method="POST" id="absensiForm">
                                 @csrf
                                 <input type="hidden" name="lat" id="lat">
                                 <input type="hidden" name="long" id="long">

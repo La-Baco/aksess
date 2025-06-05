@@ -43,7 +43,7 @@
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-            <a href="index.html" class="logo d-flex align-items-center me-auto">
+            <a href="#hero" class="logo d-flex align-items-center me-auto">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <img class="mb-2" src="{{ asset('assets/images/logo/aksess-logo.png') }} " alt="">
             </a>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-                        <img src="{{ asset('assets2/img/hero-img.png') }} " class="img-fluid animated" alt="">
+                        <img src="{{ asset('assets2/img/hero.png') }} " class="img-fluid animated" alt="">
                     </div>
                 </div>
             </div>

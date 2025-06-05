@@ -29,7 +29,7 @@ class AbsensiController extends Controller
         $mulaiAbsensi = $setting ? $setting->jam_mulai : null;
         $selesaiAbsensi = $setting ? $setting->jam_selesai : null;
 
-        return view('guru.absensi', compact(
+        return view('siswa.absensi', compact(
             'setting',
             'absenHariIni',
             'isMinggu',
@@ -88,10 +88,12 @@ class AbsensiController extends Controller
         // Simpan absensi
         Absensi::create([
             'user_id' => $user->id,
+            'tanggal' => Carbon::today(),
             'waktu' => Carbon::now(),
             'status' => 'Hadir',
             'latitude' => $request->lat,
             'longitude' => $request->long,
+            'dibuat_oleh' => Auth::id(),
         ]);
 
         return redirect()->back()->with('success', 'Absensi berhasil dilakukan.');
@@ -162,7 +164,7 @@ class AbsensiController extends Controller
             }
         }
 
-        return view('guru.rekap-kehadiran', compact('rekap', 'bulan', 'jumlahHari', 'user', 'penandaHari'));
+        return view('siswa.rekap-kehadiran', compact('rekap', 'bulan', 'jumlahHari', 'user', 'penandaHari'));
     }
 
     private function defaultStatus($tglString, array $hariLibur = [])

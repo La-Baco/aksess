@@ -59,21 +59,38 @@
                                         @php
                                             $tanggal = \Carbon\Carbon::create(null, $bulan, $i)->format('Y-m-d');
                                             $status = $rekap[$tanggal] ?? '';
+                                            $penanda = $penandaHari[$tanggal] ?? [];
+
+                                            // Tentukan warna default dari status
                                             $warna = match($status) {
                                                 'Hadir' => 'success',
                                                 'Alpha' => 'danger',
-                                                'Izin' => 'warning',
+                                                'Izin'  => 'warning',
                                                 'Sakit' => 'info',
                                                 default => 'light',
                                             };
+
+                                            // Override kalau hari Minggu atau Libur
+                                            foreach ($penanda as $tag) {
+                                                if ($tag === 'Minggu') {
+                                                    $warna = 'secondary'; // Merah untuk Minggu
+                                                    break;
+                                                } elseif ($tag === 'Libur') {
+                                                    $warna = 'secondary';
+                                                    break;
+                                                }
+                                            }
+
                                             $textColor = in_array($warna, ['light', 'warning']) ? 'text-dark' : 'text-white';
                                         @endphp
+
                                         <td class="bg-{{ $warna }} {{ $textColor }} align-middle">
                                             {{ $status ? strtoupper(substr($status, 0, 1)) : '-' }}
                                         </td>
                                     @endfor
                                 </tr>
                             </tbody>
+
                         </table>
                     </div>
 

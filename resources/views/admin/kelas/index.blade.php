@@ -141,7 +141,7 @@
                 </div>
                 <div class="d-flex justify-content-end">
                     <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Kembali</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
         </x-modal>

@@ -87,10 +87,12 @@ class AbsensiController extends Controller
         // Simpan absensi
         Absensi::create([
             'user_id' => $user->id,
+            'tanggal' => Carbon::today(),
             'waktu' => Carbon::now(),
             'status' => 'Hadir',
             'latitude' => $request->lat,
             'longitude' => $request->long,
+            'dibuat_oleh' => Auth::id(),
         ]);
 
         return redirect()->back()->with('success', 'Absensi berhasil dilakukan.');

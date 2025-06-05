@@ -179,7 +179,7 @@ class UserController extends Controller
     }
 
     // Destroy user
-    public function destroy(User $user)
+    public function destroySiswa(User $user)
     {
         if ($user->role === 'siswa') {
             $user->kelas()->detach();
@@ -187,6 +187,20 @@ class UserController extends Controller
 
         $user->delete();
 
+        return redirect()->route('admin.users.siswa')->with('success', 'User dihapus.');
+    }
+    public function destroyAdmin(User $user)
+    {
+
+        $user->delete();
+
         return redirect()->route('admin.users.index')->with('success', 'User dihapus.');
+    }
+    public function destroyGuru(User $user)
+    {
+
+        $user->delete();
+
+        return redirect()->route('admin.users.guru')->with('success', 'User dihapus.');
     }
 }
