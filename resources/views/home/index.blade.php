@@ -223,11 +223,11 @@
 
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-item d-flex align-items-center w-100 h-100">
-                            <i class="bi bi-award-fill color-pink flex-shrink-0" style="color: #d6336c;"></i>
+                            <i class="bi bi-book color-pink flex-shrink-0" style="color: #d6336c;"></i>
                             <div>
-                                <span data-purecounter-start="0" data-purecounter-end="7"
+                                <span data-purecounter-start="0" data-purecounter-end="2"
                                     data-purecounter-duration="1" class="purecounter"></span>
-                                <p>Penghargaan</p>
+                                <p>Sekolah</p>
                             </div>
                         </div>
                     </div><!-- End Stats Item -->

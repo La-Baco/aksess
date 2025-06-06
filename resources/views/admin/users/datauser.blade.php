@@ -98,7 +98,7 @@
                                 <td>{{ $guru->tanggal_lahir ?? '-' }}</td>
                                 <td>
                                     @if ($guru->foto)
-                                        <img src="{{ asset('storage/' . $guru->foto) }}" alt="Foto" width="50">
+                                        <img src="{{ Storage::url($guru->foto) }}" alt="Foto" width="50">
                                     @else
                                         -
                                     @endif

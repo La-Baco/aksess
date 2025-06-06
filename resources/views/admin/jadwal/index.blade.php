@@ -23,6 +23,7 @@
                 </div>
             @endif
 
+
             <!-- Menampilkan Jadwal per Kelas -->
             @foreach ($kelas as $kls)
                 <div class="col-12">
@@ -137,6 +138,7 @@
         <form action="{{ route('admin.jadwal.update', $jadwal->id) }}" method="POST">
             @csrf
             @method('PUT')
+
             <input type="hidden" name="kelas_id" value="{{ $kls->id }}">
 
             <div class="mb-3">

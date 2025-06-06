@@ -104,6 +104,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('/admin/izin/update/{id}', [AdminIzinController::class, 'izinUpdate'])->name('admin.izin.update');
     Route::delete('/admin/izin/delete/{id}', [AdminIzinController::class, 'destroy'])->name('admin.izin.destroy');
 
+    Route::get('/admin/change-password', [UserController::class, 'changePassword'])->name('admin.change-password');
+    Route::put('/admin/update-password', [UserController::class, 'updatePassword'])->name('admin.update-password');
+
 });
 
 Route::group(['middleware' => 'auth:guru'], function () {

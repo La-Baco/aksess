@@ -85,10 +85,29 @@
                                             </a>
                                         @endif
                                     </li>
-
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="bi bi-gear-fill me-2"></i>Settings</a></li>
                                     <li>
+                                        @php
+                                            $role = auth()->user()->role;
+                                        @endphp
+
+                                        @if ($role === 'admin')
+                                            <a class="dropdown-item" href="{{ route('admin.change-password') }}">
+                                                <i class="bi bi-shield-lock me-2"></i>Change password
+                                            </a>
+                                        @elseif ($role === 'siswa')
+                                        <a class="dropdown-item" href="{{ route('siswa.change-password') }}">
+                                            <i class="bi bi-shield-lock me-2"></i>Change password
+                                        </a>
+                                        @elseif ($role === 'guru')
+                                        <a class="dropdown-item" href="{{ route('guru.change-password') }}">
+                                            <i class="bi bi-shield-lock me-2"></i>Change password
+                                        </a>
+                                        @elseif ($role === 'kepsek')
+                                        <a class="dropdown-item" href="{{ route('kepsek.change-password') }}">
+                                            <i class="bi bi-shield-lock me-2"></i>Change password
+                                        </a>
+                                        @endif
+                                    </li>
                                         <hr class="dropdown-divider">
                                     </li>
                                     <form id="logoutFormCustom" action="{{ route('logout') }}" method="POST"

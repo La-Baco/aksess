@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Jadwal;
 use App\Models\Kelas;
-use App\Models\Mapel;
+use App\Models\Mapel;use Illuminate\Support\Facades\Validator;
+
 
 class JadwalController extends Controller
 {
@@ -21,6 +22,26 @@ class JadwalController extends Controller
 
     public function store(Request $request)
     {
+        $guruId = Mapel::findOrFail($request->mapel_id)->guru_id;
+
+        $checkJadwal = Jadwal::join('mapels', 'jadwals.mapel_id', '=', 'mapels.id')
+            ->where('jadwals.hari', $request->hari)
+            ->where(function ($query) use ($request, $guruId) {
+                $query
+                    ->where('jadwals.kelas_id', $request->kelas_id)
+                    ->orWhere('mapels.guru_id', $guruId); 
+            })
+            ->where(function ($query) use ($request) {
+                $query->where('jadwals.waktu_mulai', '<', $request->waktu_selesai)->where('jadwals.waktu_selesai', '>', $request->waktu_mulai); // Cek waktu bentrok
+            })
+            ->exists();
+
+        if ($checkJadwal) {
+            return redirect()
+                ->back()
+                ->withErrors(['jadwal' => 'Jadwal bentrok dengan jadwal lain!']);
+        }
+
         $request->validate([
             'kelas_id' => 'required',
             'mapel_id' => 'required',
@@ -29,24 +50,7 @@ class JadwalController extends Controller
             'waktu_selesai' => 'required|after:waktu_mulai',
         ]);
 
-        $guruId = Mapel::findOrFail($request->mapel_id)->guru_id;
 
-        $checkJadwal = Jadwal::join('mapels', 'jadwals.mapel_id', '=', 'mapels.id')
-            ->where('jadwals.hari', $request->hari)
-            ->where(function ($query) use ($request, $guruId) {
-                $query->where('jadwals.kelas_id', $request->kelas_id)       // Cek bentrok di kelas yang sama
-                    ->orWhere('mapels.guru_id', $guruId);                 // Cek bentrok karena guru yang sama
-            })
-            ->where(function ($query) use ($request) {
-                $query->where('jadwals.waktu_mulai', '<', $request->waktu_selesai)
-                    ->where('jadwals.waktu_selesai', '>', $request->waktu_mulai); // Cek waktu bentrok
-            })
-            ->exists();
-
-
-        if ($checkJadwal) {
-            return redirect()->back()->withErrors(['jadwal' => 'Jadwal bentrok dengan jadwal lain!']);
-        }
 
         Jadwal::create([
             'kelas_id' => $request->kelas_id,
@@ -59,55 +63,58 @@ class JadwalController extends Controller
         return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan.');
     }
 
-
     public function update(Request $request, $id)
-{
-    // Validasi input
-    $request->validate([
-        'kelas_id' => 'required|exists:kelas,id',
-        'mapel_id' => 'required|exists:mapels,id',
-        'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
-        'waktu_mulai' => 'required|date_format:H:i',
-        'waktu_selesai' => 'required|date_format:H:i|after:waktu_mulai',
-    ]);
+    {
+        $jadwal = Jadwal::findOrFail($id);
+        $guruId = Mapel::findOrFail($request->mapel_id)->guru_id;
 
-    $jadwal = Jadwal::findOrFail($id);
-
-    $guruId = Mapel::findOrFail($request->mapel_id)->guru_id;
-
-    // $checkJadwal = Jadwal::join('mapels', 'jadwals.mapel_id', '=', 'mapels.id')
-    //     ->where('jadwals.hari', $request->hari)
-    //     ->where('jadwals.id', '!=', $id)
-    //     ->where(function ($query) use ($request, $guruId) {
-    //         $query->where('jadwals.kelas_id', $request->kelas_id)
-    //             ->orWhere('mapels.guru_id', $guruId);
-    //     })
-    //     ->where(function ($query) use ($request) {
-    //         $query->where('jadwals.waktu_mulai', '<', $request->waktu_selesai)
-    //             ->where('jadwals.waktu_selesai', '>', $request->waktu_mulai);
-    //     })
-    //     ->exists();
-
-    // if ($checkJadwal) {
-    //     return redirect()->back()->withErrors(['jadwal' => 'Jadwal bentrok dengan jadwal lain (guru atau kelas).']);
-    // }
-
-    // Update jadwal
-    $jadwal->update([
-        'kelas_id' => $request->kelas_id,
-        'mapel_id' => $request->mapel_id,
-        'hari' => $request->hari,
-        'waktu_mulai' => $request->waktu_mulai,
-        'waktu_selesai' => $request->waktu_selesai,
-    ]);
-
-    // Redirect dengan pesan sukses
-    return redirect()->back()->with('success', 'Jadwal berhasil diperbarui!');
-}
+        $jadwalBentrok = Jadwal::join('mapels', 'jadwals.mapel_id', '=', 'mapels.id')
+            ->where('jadwals.hari', $request->hari)
+            ->where('jadwals.id', '!=', $id)
+            ->where(function ($query) use ($request, $guruId) {
+                $query
+                    ->where(function ($q) use ($request) {
+                        $q->where('jadwals.kelas_id', $request->kelas_id);
+                    })
+                    ->orWhere(function ($q) use ($guruId) {
+                        $q->where('mapels.guru_id', $guruId);
+                    });
+            })
+            ->where(function ($query) use ($request) {
+                $query->where('jadwals.waktu_mulai', '<', $request->waktu_selesai)->where('jadwals.waktu_selesai', '>', $request->waktu_mulai);
+            })
+            ->exists();
 
 
+        if ($jadwalBentrok) {
+            return redirect()
+                ->back()
+                ->withErrors(['jadwal' => 'Jadwal bentrok dengan jadwal lain (guru atau kelas).']);
+        }
+        $request->validate([
+            'kelas_id' => 'required|exists:kelas,id',
+            'mapel_id' => 'required|exists:mapels,id',
+            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu',
+            'waktu_mulai' => 'required|date_format:H:i:s',
+            'waktu_selesai' => 'required|date_format:H:i:s|after:waktu_mulai',
+        ]);
 
+        $updated = $jadwal->update([
+            'kelas_id' => $request->kelas_id,
+            'mapel_id' => $request->mapel_id,
+            'hari' => $request->hari,
+            'waktu_mulai' => $request->waktu_mulai,
+            'waktu_selesai' => $request->waktu_selesai,
+        ]);
 
+        if (!$updated) {
+            return redirect()
+                ->back()
+                ->withErrors(['update' => 'Gagal memperbarui jadwal']);
+        }
+
+        return redirect()->back()->with('success', 'Jadwal berhasil diperbarui!');
+    }
 
     // Menghapus jadwal (untuk modal)
     public function destroy($id)
